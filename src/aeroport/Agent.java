@@ -1,11 +1,13 @@
 package aeroport;
 
+import java.util.Date;
 import java.util.Hashtable;
 
-public class Agent {
+public abstract class Agent {
 
 	private String matricule, nom, prenom;
 	private int code;
+	private Hashtable<Date, Tache> lesTaches;
 	
 	public static Hashtable<String, Agent> lesAgents = new Hashtable<String, Agent>();
 	
@@ -14,7 +16,10 @@ public class Agent {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.code = code;
+		this.lesTaches = new Hashtable<Date, Tache>();
 		lesAgents.put(matricule, this);
 	}	
+	
+	public abstract Horaire getHoraire();
 	
 }
