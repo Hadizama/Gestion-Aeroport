@@ -6,5 +6,4 @@ public class TacheEnregistrement extends TacheVol {
 		super(libelle, debut, fin, duree, numeroVol);
 	}
 
-	
 }

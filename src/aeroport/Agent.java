@@ -7,7 +7,7 @@ public abstract class Agent {
 
 	private String matricule, nom, prenom;
 	private int code;
-	private Hashtable<Date, Tache> lesTaches;
+	private Hashtable<Duree, Tache> lesTaches;
 	
 	public static Hashtable<String, Agent> lesAgents = new Hashtable<String, Agent>();
 	
@@ -16,7 +16,7 @@ public abstract class Agent {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.code = code;
-		this.lesTaches = new Hashtable<Date, Tache>();
+		this.lesTaches = new Hashtable<Duree, Tache>();
 		lesAgents.put(matricule, this);
 	}	
 	
