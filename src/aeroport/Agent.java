@@ -6,12 +6,13 @@ import java.util.Hashtable;
 public abstract class Agent {
 
 	private String matricule, nom, prenom;
-	private int code;
+	private long code;
 	private Hashtable<Duree, Tache> lesTaches;
+	private String attributbidon;
 	
 	public static Hashtable<String, Agent> lesAgents = new Hashtable<String, Agent>();
 	
-	public Agent(String matricule, String nom, String prenom, int code) {
+	public Agent(String matricule, String nom, String prenom, long code) {
 		this.matricule = matricule;
 		this.nom = nom;
 		this.prenom = prenom;
