@@ -17,6 +17,8 @@ public class Main {
 			StringTokenizer decoupe = new StringTokenizer(ligne);
 			Avion avion = new Avion(decoupe.nextToken(), decoupe.nextToken(), Integer.parseInt(decoupe.nextToken()));
 		}
+		
+		System.out.println("Welcome");
 
 	}
 
