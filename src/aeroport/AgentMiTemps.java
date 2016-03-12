@@ -34,7 +34,7 @@ public class AgentMiTemps extends Agent {
 
 	@Override
 	public void affecterTache(Tache t) {
-		// TODO Auto-generated method stub
+		getLesTaches().put(t.getLibelle(), t);
 		
 	}
 	
