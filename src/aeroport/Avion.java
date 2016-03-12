@@ -17,12 +17,19 @@ public class Avion {
 		lesAvions.put(matriculeAvion, this);
 	}
 
-
-	public String getMatricule(){
+	
+	public String getMatriculeAvion() {
 		return matriculeAvion;
 	}
-	
-	
+
+	public String getModele() {
+		return modele;
+	}
+
+	public int getCapacite() {
+		return capacite;
+	}
+
 	public String toString(){
 		return ""+ matriculeAvion + " " + modele +" " + capacite;
 	}

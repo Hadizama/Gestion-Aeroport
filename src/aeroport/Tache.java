@@ -17,6 +17,24 @@ public abstract class Tache {
 		this.duree = duree;
 		lesTaches.put(libelle, this);
 	}
+
+	public String getLibelle() {
+		return libelle;
+	}
+
+	public Horaire getDebut() {
+		return debut;
+	}
+
+	public Horaire getFin() {
+		return fin;
+	}
+
+	public Duree getDuree() {
+		return duree;
+	}
+	
+	
 	
 	
 	

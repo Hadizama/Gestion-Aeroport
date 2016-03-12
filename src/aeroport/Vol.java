@@ -18,4 +18,22 @@ public abstract class Vol {
 		lesVols.put(numeroVol, this);
 	}
 
+	public String getNumeroVol() {
+		return numeroVol;
+	}
+
+	public String getProvenance() {
+		return provenance;
+	}
+
+	public Horaire getHoraire() {
+		return horaire;
+	}
+
+	public Avion getAvion() {
+		return avion;
+	}
+	
+	
+
 }
