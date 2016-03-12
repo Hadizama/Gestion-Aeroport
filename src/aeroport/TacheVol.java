@@ -14,4 +14,8 @@ public class TacheVol extends Tache {
 		lesTachesVol.put(numeroVol, this);
 	}
 
+	public String getNumeroVol() {
+		return numeroVol;
+	}	
+
 }
