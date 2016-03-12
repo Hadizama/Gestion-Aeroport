@@ -32,6 +32,29 @@ public class Main {
 			new AgentTempsPlein(decoupe.nextToken(), decoupe.nextToken(), decoupe.nextToken(), Integer.parseInt(decoupe.nextToken()));
 		}
 		
+		entree = new BufferedReader	(new FileReader("./ressources/ProgrammeVolsDeparts16-v2.txt"));
+		ligne= null;
+		while ((ligne = entree.readLine())!=null){			
+			StringTokenizer decoupe = new StringTokenizer(ligne);
+			new VolDepart(
+					decoupe.nextToken(), 
+					new Horaire(Integer.parseInt(decoupe.nextToken()), Integer.parseInt(decoupe.nextToken())),
+					decoupe.nextToken(),
+					Avion.lesAvions.get(decoupe.nextToken())
+				);
+		}
+		
+		entree = new BufferedReader	(new FileReader("./ressources/ProgrammeVolsArrivees16-v2.txt"));
+		ligne= null;
+		while ((ligne = entree.readLine())!=null){			
+			StringTokenizer decoupe = new StringTokenizer(ligne);
+			new VolArrivee(
+					decoupe.nextToken(), 
+					new Horaire(Integer.parseInt(decoupe.nextToken()), Integer.parseInt(decoupe.nextToken())),
+					decoupe.nextToken(),
+					Avion.lesAvions.get(decoupe.nextToken())
+				);
+		}
 
 	}
 
