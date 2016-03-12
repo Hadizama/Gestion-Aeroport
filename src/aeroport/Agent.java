@@ -8,7 +8,6 @@ public abstract class Agent {
 	private String matricule, nom, prenom;
 	private long code;
 	private Hashtable<Duree, Tache> lesTaches;
-	private String attributbidon;
 	
 	public static Hashtable<String, Agent> lesAgents = new Hashtable<String, Agent>();
 	
