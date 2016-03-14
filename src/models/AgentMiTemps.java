@@ -1,15 +1,16 @@
-package aeroport;
+package models;
 
 import java.util.Hashtable;
 
 public class AgentMiTemps extends Agent {
 
-	private final double nbHeure = 3.3;
+	private Duree nbHeure;
 	
 	public static Hashtable<String, AgentMiTemps> lesAgentsMiTemps = new Hashtable<String, AgentMiTemps>();
 
 	public AgentMiTemps(String matricule, String nom, String prenom, int code) {
 		super(matricule, nom, prenom, code);
+		this.nbHeure = new Duree(3, 30);
 		lesAgentsMiTemps.put(matricule, this);
 	}
 
@@ -32,11 +33,14 @@ public class AgentMiTemps extends Agent {
 		return th;
 	}
 
-	@Override
-	public void affecterTache(Tache t) {
-		getLesTaches().put(t.getLibelle(), t);
-		
+	public Duree getNbHeure() {
+		return nbHeure;
 	}
+
+	public void setNbHeure(Duree nbHeure) {
+		this.nbHeure = nbHeure;
+	}
+	
 	
 
 }

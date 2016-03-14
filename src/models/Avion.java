@@ -1,4 +1,4 @@
-package aeroport;
+package models;
 
 import java.util.Hashtable;
 

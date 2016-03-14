@@ -1,21 +1,22 @@
-package aeroport;
+package models;
 
 import java.util.Hashtable;
 
 public abstract class Tache {
 	
+	private int idTache;
+	private static int dernierId = 1;
 	private String libelle;
 	private Horaire debut, fin;
 	private Duree duree;
 	
-	public static Hashtable<String, Tache> lesTaches = new Hashtable<String, Tache>();
+	public static Hashtable<Integer, Tache> lesTaches = new Hashtable<Integer, Tache>();
 	
-	public Tache(String libelle, Horaire debut, Horaire fin, Duree duree) {
+	public Tache(String libelle, Horaire debut){
+		this.idTache = dernierId++;
 		this.libelle = libelle;
 		this.debut = debut;
-		this.fin = fin;
-		this.duree = duree;
-		lesTaches.put(libelle, this);
+		lesTaches.put(idTache, this);
 	}
 
 	public String getLibelle() {
@@ -33,6 +34,15 @@ public abstract class Tache {
 	public Duree getDuree() {
 		return duree;
 	}
+
+	public void setFin(Horaire fin) {
+		this.fin = fin;
+	}
+
+	public void setDuree(Duree duree) {
+		this.duree = duree;
+	}
+	
 	
 	
 	

@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import controllers.MainController;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -31,24 +33,27 @@ public class FenetreAccueil extends JFrame {
 	}
 
 	public FenetreAccueil() {
-		setResizable(false);
 		setBounds(100, 100, 450, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		setTitle("Accueil");
+		contentPane.setLayout(new BorderLayout());
+		ActionListener controleur = new MainController(this); 		
+
 		
-		JPanel boutons = new JPanel();
-		boutons.setLayout(new GridLayout(3,1));
-		contentPane.add(boutons);
-		
-		
+		// Menu
+		JPanel panelboutons = new JPanel();
+		contentPane.add(panelboutons, BorderLayout.NORTH);		
 		JButton gestionVols = new JButton("Gestion des vols");
-		boutons.add(gestionVols);
+		panelboutons.add(gestionVols);
 		JButton gestionAgents = new JButton("Gestion des agents");
-		boutons.add(gestionAgents);
+		panelboutons.add(gestionAgents);
 		JButton planning = new JButton("Générer planning");
-		boutons.add(planning);
+		panelboutons.add(planning);
+		
+		// Contenu
+		
 		
 	}
 
