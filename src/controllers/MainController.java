@@ -71,7 +71,6 @@ public class MainController implements ActionListener{
 						Avion.lesAvions.get(decoupe.nextToken())
 					);
 			}
-			System.out.println("Gg men");
 		} catch (NumberFormatException | IOException e) {
 			e.printStackTrace();
 		}
