@@ -1,8 +1,12 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 
 public abstract class Agent {
 
@@ -91,6 +95,16 @@ public abstract class Agent {
 			res += "\t"+ (Tache)liste.nextElement() +"\n";
 		return res;
 	}
+	
+	public void afficherPlanningTache(){
+		ArrayList<Tache> liste = new ArrayList<Tache>(lesTaches.values());
+		Collections.sort(liste);
+		for (Tache tache : liste) {
+			System.out.println(tache);
+		}
+	}
+	
+	
 	
 	
 }

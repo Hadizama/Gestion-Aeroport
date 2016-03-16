@@ -2,7 +2,7 @@ package models;
 
 import java.util.Hashtable;
 
-public abstract class Tache {
+public abstract class Tache implements Comparable<Tache> {
 	
 	private int idTache;
 	private static int dernierId = 1;
@@ -47,5 +47,10 @@ public abstract class Tache {
 	public String toString() {
 		return "- "+ libelle + "["+ debut +" - "+ fin +"] soit "+ duree;
 	}
+	
+	@Override
+    public int compareTo(Tache t) {
+		return debut.compareTo(t.debut);
+    }
 	
 }
