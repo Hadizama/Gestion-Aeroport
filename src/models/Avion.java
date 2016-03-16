@@ -30,7 +30,12 @@ public class Avion {
 		return capacite;
 	}
 
-	public String toString(){
-		return ""+ matriculeAvion + " " + modele +" " + capacite;
+
+	@Override
+	public String toString() {
+		return "Avion [matriculeAvion=" + matriculeAvion + ", modele=" + modele
+				+ ", capacite=" + capacite + "]";
 	}
+
+	
 }

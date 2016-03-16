@@ -33,6 +33,14 @@ public abstract class Vol {
 	public Avion getAvion() {
 		return avion;
 	}
+
+	@Override
+	public String toString() {
+		return "Vol [numeroVol=" + numeroVol + ", provenance=" + provenance
+				+ ", horaire=" + horaire + ", avion=" + avion + "]";
+	}
+	
+	
 		
 	
 

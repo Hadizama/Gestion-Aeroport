@@ -15,7 +15,6 @@ public class Main {
 		
 		
 		AgentTempsPlein a = new AgentTempsPlein("sfsdfsdfds", "José", "Bové", 2);
-		System.out.println(a.getHoraire());
 //
 //		Tache t1 = new TacheAccueil("tache1", new Horaire(9, 10), new Horaire(10, 10));
 //		Tache t2 = new TacheAccueil("tache2", new Horaire(10, 30), new Horaire(10, 40));
@@ -23,6 +22,9 @@ public class Main {
 //		a.affecterTache(t2);
 						
 		a.affecterTache(TacheDebarquement.lesTachesDebarquement.get("IT4444"));
+		
+		System.out.println(a);
+
 		
 	}
 

@@ -84,6 +84,13 @@ public abstract class Agent {
 		this.lesTaches.clear();
 	}
 	
+	public String toString(){
+		String res = this.matricule +" - "+ this.nom + this.prenom + " - "+ getHoraire() + "\nListe des tâches affectées :\n";
+		Enumeration<Tache> liste = lesTaches.elements();
+		while(liste.hasMoreElements())
+			res += "\t"+ (Tache)liste.nextElement() +"\n";
+		return res;
+	}
 	
 	
 }

@@ -42,11 +42,10 @@ public abstract class Tache {
 	public void setDuree(Duree duree) {
 		this.duree = duree;
 	}
-	
-	
-	
-	
-	
-	
 
+	@Override
+	public String toString() {
+		return "- "+ libelle + "["+ debut +" - "+ fin +"] soit "+ duree;
+	}
+	
 }
