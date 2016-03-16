@@ -1,6 +1,5 @@
 package models;
 
-import exceptions.InvalidTacheHoraire;
 
 public class TacheAccueil extends Tache {
 

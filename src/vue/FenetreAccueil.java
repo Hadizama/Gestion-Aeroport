@@ -17,8 +17,10 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Observable;
+import java.util.Observer;
 
-public class FenetreAccueil extends JFrame {
+public class FenetreAccueil extends JFrame implements Observer {
 
 	private JFrame frame;
 	private JPanel contentPane;
@@ -54,6 +56,12 @@ public class FenetreAccueil extends JFrame {
 		
 		// Contenu
 		
+		
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
 		
 	}
 

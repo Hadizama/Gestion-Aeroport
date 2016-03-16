@@ -9,5 +9,8 @@ public class VolDepart extends Vol {
 	public VolDepart(String numeroVol, Horaire horaire, String provenance, Avion avion) {
 		super(numeroVol, horaire, provenance, avion);
 		lesVolsDepart.put(numeroVol, this);
+		new TacheEmbarquement("Embarquement vol :" + numeroVol + ".", horaire.retrait(new Duree(15)), numeroVol);
+		for(int i=1; i< (int)avion.getCapacite()%90; i++)
+			new TacheEnregistrement("Enregistrement " + i + " du vol :" + numeroVol + ".", horaire.retrait(new Duree(1,30)), numeroVol);
 	}
 }

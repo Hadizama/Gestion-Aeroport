@@ -9,6 +9,7 @@ public class VolArrivee extends Vol {
 	public VolArrivee(String numeroVol, Horaire horaire, String provenance, Avion avion) {
 		super(numeroVol, horaire, provenance, avion);
 		lesVolsArrivee.put(numeroVol, this);
+		new TacheDebarquement("Débarquement Vol :" + numeroVol + ".", horaire.retrait(new Duree(5)), numeroVol);
 	}
 
 }

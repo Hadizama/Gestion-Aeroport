@@ -49,7 +49,7 @@ public abstract class Agent {
 	}
 	
 	public boolean affecterTache(Tache t) {
-		if(estDisponible(t.getDebut(), t.getFin())){
+		if(estDisponible(t.getDebut(), t.getFin()) && resteTempsTravail(t)){
 			getLesTaches().put(t.getLibelle(), t);
 			System.out.println("Ajouté !");
 			return true;

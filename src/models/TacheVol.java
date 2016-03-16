@@ -2,8 +2,6 @@ package models;
 
 import java.util.Hashtable;
 
-import exceptions.InvalidTacheHoraire;
-
 public class TacheVol extends Tache {
 	
 	private String numeroVol;
