@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 
 public abstract class Tache implements Comparable<Tache> {
@@ -50,6 +52,12 @@ public abstract class Tache implements Comparable<Tache> {
 	
 	public int getIdTache() {
 		return idTache;
+	}
+	
+	public static ArrayList<Tache> trier(Hashtable h){
+		ArrayList<Tache> liste = new ArrayList<Tache>(h.values());
+		Collections.sort(liste);
+		return liste;
 	}
 
 	@Override

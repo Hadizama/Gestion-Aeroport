@@ -12,7 +12,7 @@ public abstract class Agent implements Comparable<Agent>{
 
 	private String matricule, nom, prenom;
 	private int code;
-	private Hashtable<String, Tache> lesTaches;
+	private Hashtable<Integer, Tache> lesTaches;
 	
 	private static Hashtable<String, Agent> lesAgents = new Hashtable<String, Agent>();
 	
@@ -21,7 +21,7 @@ public abstract class Agent implements Comparable<Agent>{
 		this.nom = nom;
 		this.prenom = prenom;
 		this.code = code;
-		this.lesTaches = new Hashtable<String, Tache>();
+		this.lesTaches = new Hashtable<Integer, Tache>();
 		lesAgents.put(matricule, this);
 	}	
 	
@@ -38,7 +38,8 @@ public abstract class Agent implements Comparable<Agent>{
 			res = true;
 			while(liste.hasMoreElements()){
 				Tache t = (Tache)liste.nextElement();
-				if(thTache.contient(t.getDebut()) || thTache.contient(t.getFin()))
+				TrancheHoraire th = new TrancheHoraire(t.getDebut(), t.getFin());
+				if(thTache.intersection(th) != null)
 					res = false;
 			}
 		}
@@ -54,12 +55,11 @@ public abstract class Agent implements Comparable<Agent>{
 	
 	public boolean affecterTache(Tache t) {
 		if(estDisponible(t.getDebut(), t.getFin()) && resteTempsTravail(t)){
-			getLesTaches().put(t.getLibelle(), t);
-			System.out.println("Ajouté !");
+			getLesTaches().put(t.getIdTache(), t);
+			setNbHeure(getNbHeure().retirer(t.getDuree()));
 			return true;
 		}
 		else{
-			System.out.println("Raté !");
 			return false;
 		}		
 	}
@@ -80,7 +80,7 @@ public abstract class Agent implements Comparable<Agent>{
 		return code;
 	}
 
-	public Hashtable<String, Tache> getLesTaches() {
+	public Hashtable<Integer, Tache> getLesTaches() {
 		return lesTaches;
 	}
 	
@@ -91,6 +91,18 @@ public abstract class Agent implements Comparable<Agent>{
 
 	public void resetTache(){
 		this.lesTaches.clear();
+	}
+	
+	public Horaire getHRepas(){
+		Horaire horaire;
+		do {
+			int h = (int) (Math.random()*(14-11)+11);
+			int m = (int) (Math.random()*59);
+			if(h == 11)
+				m = (int) (Math.random()*29+30);
+			horaire = new Horaire(h, m);
+		} while(!getHoraire().contient(horaire));
+		return horaire;
 	}
 	
 	public String toString(){
@@ -109,8 +121,8 @@ public abstract class Agent implements Comparable<Agent>{
 		}
 	}
 	
-	public static ArrayList<Agent> getListeAgentsTri(){
-		ArrayList<Agent> liste = new ArrayList<Agent>(lesAgents.values());
+	public static ArrayList<Agent> trier(Hashtable h){
+		ArrayList<Agent> liste = new ArrayList<Agent>(h.values());
 		Collections.sort(liste);
 		return liste;
 	}

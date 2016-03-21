@@ -41,5 +41,8 @@ public class Duree implements Comparable{
        Duree d=(Duree) o;
        return dureeEnMinutes()-d.dureeEnMinutes();
      }
-
+    
+    public Duree retirer(Duree d){
+    	return new Duree(dureeEnMinutes()-d.dureeEnMinutes());
+    }
 }

@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import models.*;
@@ -76,5 +77,19 @@ public class MainController implements ActionListener{
 		}
 		
 	}
+	
+	public void genererPlanning(){
+		ArrayList<Agent> atp = Agent.trier(AgentTempsPlein.getLesAgentsTempsPlein());
+		for(int i=0; i<atp.size(); i++){
+			atp.get(i).affecterTache(new TacheRepas("Repas", atp.get(i).getHRepas()));
+		}
+		ArrayList<Tache> tv = Tache.trier(TacheVol.getLesTachesVol());
+		for(Tache t : tv){
+			ArrayList<Agent> a = Agent.trier(Agent.getLesAgents());
+			int i = 0;
+			while(i<a.size() && !a.get(i).affecterTache(t)){ i++; }
+		}
+	}
+
 
 }

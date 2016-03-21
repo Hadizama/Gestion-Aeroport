@@ -1,6 +1,7 @@
 package models;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import vue.FenetreAccueil;
@@ -11,7 +12,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		MainController mc = new MainController(new FenetreAccueil());
+		MainController mc = new MainController(null);
 		
 		
 		/*AgentTempsPlein a = new AgentTempsPlein("sfsdfsdfds", "José", "Bové", 2);
@@ -26,10 +27,22 @@ public class Main {
 		a.afficherPlanningTache();
 */
 		
+		/*for(int i=0;i<20;i++){
+			System.out.println(Agent.getHRepas());
+		}*/
+		mc.genererPlanning();
+		ArrayList<Agent> ag = Agent.trier(Agent.getLesAgents());
+		int i = 0;
+		for(Agent a : ag){
+			System.out.println(a);
+			i+= a.getLesTaches().size();
+		}
+		System.out.println(i);
 		
+		//System.out.println(Tache.trier(TacheRepas.getLesTachesRepas()));
 		
-		System.out.println(TacheVol.getLesTachesVol().toString());
-		System.out.println(TacheVol.getLesTachesVol().toString());
+		//System.out.println(TacheVol.getLesTachesVol().size());
+		//System.out.println(Agent.trier(AgentMiTemps.getLesAgentsMiTemps()).toString());
 	//	System.out.println(TacheEmbarquement.getLesTachesEmbarquement().size());
 	//	System.out.println(TacheDebarquement.getLesTachesDebarquement().toString());
 	}
