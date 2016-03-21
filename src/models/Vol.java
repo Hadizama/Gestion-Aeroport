@@ -41,7 +41,7 @@ public abstract class Vol {
 	@Override
 	public String toString() {
 		return "Vol [numeroVol=" + numeroVol + ", provenance=" + provenance
-				+ ", horaire=" + horaire + ", avion=" + avion + "]";
+				+ ", horaire=" + horaire + ", avion=" + avion + "]"+"\n";
 	}
 	
 	

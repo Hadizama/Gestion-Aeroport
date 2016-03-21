@@ -47,9 +47,14 @@ public abstract class Tache implements Comparable<Tache> {
 		return lesTaches;
 	}
 
+	
+	public int getIdTache() {
+		return idTache;
+	}
+
 	@Override
 	public String toString() {
-		return "- "+ libelle + "["+ debut +" - "+ fin +"] soit "+ duree;
+		return " - "+ libelle + "["+ debut +" - "+ fin +"] soit "+ duree + "\n";
 	}
 	
 	@Override

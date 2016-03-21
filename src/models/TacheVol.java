@@ -6,19 +6,20 @@ public class TacheVol extends Tache {
 	
 	private String numeroVol;
 	
-	private static Hashtable<String, TacheVol> lesTachesVol = new Hashtable<String, TacheVol>();
+	private static Hashtable<Integer, TacheVol> lesTachesVol = new Hashtable<Integer, TacheVol>();
 
 	public TacheVol(String libelle, Horaire debut, String numeroVol) {
 		super(libelle, debut);
 		this.numeroVol = numeroVol;
-		lesTachesVol.put(numeroVol, this);
+		lesTachesVol.put(getIdTache(), this);
+		
 	}
 
 	public String getNumeroVol() {
 		return numeroVol;
 	}
 
-	public static Hashtable<String, TacheVol> getLesTachesVol() {
+	public static Hashtable<Integer, TacheVol> getLesTachesVol() {
 		return lesTachesVol;
 	}	
 

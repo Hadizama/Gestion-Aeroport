@@ -12,6 +12,7 @@ public class TacheEmbarquement extends TacheVol {
 		setDuree(new Duree(20));
 		setFin(debut.ajout(getDuree()));
 		lesTachesEmbarquement.put(numeroVol, this);
+		
 	}
 
 	public static Hashtable<String, TacheEmbarquement> getLesTachesEmbarquement() {

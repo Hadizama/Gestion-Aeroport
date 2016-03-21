@@ -11,10 +11,15 @@ public class TacheAccueil extends Tache {
 		super(libelle, debut);
 		setFin(fin);
 		setDuree(new Duree(fin.horaireEnMinutes() - debut.horaireEnMinutes()));
+		lesTachesAccueil.put(getIdTache(), this);
+		
 	}
 
 	public static Hashtable<Integer, Tache> getLesTachesAccueil() {
 		return lesTachesAccueil;
 	}
+	
+	
+	
 
 }
