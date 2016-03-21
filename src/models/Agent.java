@@ -8,7 +8,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
-public abstract class Agent {
+public abstract class Agent implements Comparable<Agent>{
 
 	private String matricule, nom, prenom;
 	private int code;
@@ -109,6 +109,15 @@ public abstract class Agent {
 		}
 	}
 	
+	public static ArrayList<Agent> getListeAgentsTri(){
+		ArrayList<Agent> liste = new ArrayList<Agent>(lesAgents.values());
+		Collections.sort(liste);
+		return liste;
+	}
+	
+    public int compareTo(Agent a) {
+		return getHoraire().getDebutTrancheHoraire().compareTo(a.getHoraire().getDebutTrancheHoraire());
+    }
 	
 	
 	
