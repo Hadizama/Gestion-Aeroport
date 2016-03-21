@@ -2,7 +2,7 @@ package models;
 
 import java.util.Hashtable;
 
-public class TacheVol extends Tache {
+public abstract class TacheVol extends Tache {
 	
 	private String numeroVol;
 	
