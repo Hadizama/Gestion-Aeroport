@@ -56,7 +56,7 @@ public class MainController implements ActionListener{
 						decoupe.nextToken(), 
 						new Horaire(Integer.parseInt(decoupe.nextToken()), Integer.parseInt(decoupe.nextToken())),
 						decoupe.nextToken(),
-						Avion.lesAvions.get(decoupe.nextToken())
+						Avion.getLesAvions().get(decoupe.nextToken())
 					);
 			}
 			
@@ -68,7 +68,7 @@ public class MainController implements ActionListener{
 						decoupe.nextToken(), 
 						new Horaire(Integer.parseInt(decoupe.nextToken()), Integer.parseInt(decoupe.nextToken())),
 						decoupe.nextToken(),
-						Avion.lesAvions.get(decoupe.nextToken())
+						Avion.getLesAvions().get(decoupe.nextToken())
 					);
 			}
 		} catch (NumberFormatException | IOException e) {

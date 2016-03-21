@@ -6,7 +6,7 @@ public class AgentMiTemps extends Agent {
 
 	private Duree nbHeure;
 	
-	public static Hashtable<String, AgentMiTemps> lesAgentsMiTemps = new Hashtable<String, AgentMiTemps>();
+	private static Hashtable<String, AgentMiTemps> lesAgentsMiTemps = new Hashtable<String, AgentMiTemps>();
 
 	public AgentMiTemps(String matricule, String nom, String prenom, int code) {
 		super(matricule, nom, prenom, code);
@@ -40,6 +40,12 @@ public class AgentMiTemps extends Agent {
 	public void setNbHeure(Duree nbHeure) {
 		this.nbHeure = nbHeure;
 	}
+
+	public static Hashtable<String, AgentMiTemps> getLesAgentsMiTemps() {
+		return lesAgentsMiTemps;
+	}
+	
+	
 	
 	
 

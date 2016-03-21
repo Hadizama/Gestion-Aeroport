@@ -10,7 +10,7 @@ public abstract class Tache implements Comparable<Tache> {
 	private Horaire debut, fin;
 	private Duree duree;
 	
-	public static Hashtable<Integer, Tache> lesTaches = new Hashtable<Integer, Tache>();
+	private static Hashtable<Integer, Tache> lesTaches = new Hashtable<Integer, Tache>();
 	
 	public Tache(String libelle, Horaire debut){
 		this.idTache = dernierId++;
@@ -41,6 +41,10 @@ public abstract class Tache implements Comparable<Tache> {
 
 	public void setDuree(Duree duree) {
 		this.duree = duree;
+	}
+
+	public static Hashtable<Integer, Tache> getLesTaches() {
+		return lesTaches;
 	}
 
 	@Override

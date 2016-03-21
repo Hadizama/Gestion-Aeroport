@@ -34,6 +34,10 @@ public abstract class Vol {
 		return avion;
 	}
 
+	public static Hashtable<String, Vol> getLesVols() {
+		return lesVols;
+	}
+
 	@Override
 	public String toString() {
 		return "Vol [numeroVol=" + numeroVol + ", provenance=" + provenance

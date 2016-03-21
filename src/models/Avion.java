@@ -8,7 +8,7 @@ public class Avion {
 	private String modele;
 	private int capacite;
 	
-	public static Hashtable<String,Avion> lesAvions = new Hashtable<String, Avion>();
+	private static Hashtable<String,Avion> lesAvions = new Hashtable<String, Avion>();
 
 	public Avion(String matriculeAvion, String modele, int capacite) {
 		this.matriculeAvion = matriculeAvion;
@@ -28,6 +28,10 @@ public class Avion {
 
 	public int getCapacite() {
 		return capacite;
+	}
+
+	public static Hashtable<String, Avion> getLesAvions() {
+		return lesAvions;
 	}
 
 

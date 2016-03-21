@@ -1,9 +1,13 @@
 package models;
 
+import java.util.Hashtable;
+
 import exceptions.InvalidTacheRepas;
 
 
 public class TacheRepas extends Tache {
+	
+	private static Hashtable<Integer, Tache> lesTachesRepas = new Hashtable<Integer, Tache>();
 
 	public TacheRepas(String libelle, Horaire debut) throws InvalidTacheRepas{
 		super(libelle, debut);
@@ -13,6 +17,10 @@ public class TacheRepas extends Tache {
 		}
 		setDuree(new Duree(1, 0));
 		setFin(debut.ajout(getDuree()));
+	}
+
+	public static Hashtable<Integer, Tache> getLesTachesRepas() {
+		return lesTachesRepas;
 	}
 
 }

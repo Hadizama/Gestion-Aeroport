@@ -14,7 +14,7 @@ public abstract class Agent {
 	private int code;
 	private Hashtable<String, Tache> lesTaches;
 	
-	public static Hashtable<String, Agent> lesAgents = new Hashtable<String, Agent>();
+	private static Hashtable<String, Agent> lesAgents = new Hashtable<String, Agent>();
 	
 	public Agent(String matricule, String nom, String prenom, int code) {
 		this.matricule = matricule;
@@ -84,6 +84,11 @@ public abstract class Agent {
 		return lesTaches;
 	}
 	
+	
+	public static Hashtable<String, Agent> getLesAgents() {
+		return lesAgents;
+	}
+
 	public void resetTache(){
 		this.lesTaches.clear();
 	}

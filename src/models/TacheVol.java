@@ -6,7 +6,7 @@ public class TacheVol extends Tache {
 	
 	private String numeroVol;
 	
-	public static Hashtable<String, TacheVol> lesTachesVol = new Hashtable<String, TacheVol>();
+	private static Hashtable<String, TacheVol> lesTachesVol = new Hashtable<String, TacheVol>();
 
 	public TacheVol(String libelle, Horaire debut, String numeroVol) {
 		super(libelle, debut);
@@ -16,6 +16,10 @@ public class TacheVol extends Tache {
 
 	public String getNumeroVol() {
 		return numeroVol;
+	}
+
+	public static Hashtable<String, TacheVol> getLesTachesVol() {
+		return lesTachesVol;
 	}	
 
 }
