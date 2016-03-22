@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 public abstract class Tache implements Comparable<Tache> {
@@ -12,6 +13,7 @@ public abstract class Tache implements Comparable<Tache> {
 	private Horaire debut, fin;
 	private Duree duree;
 	
+	private static Hashtable<Integer, Tache> lesTachesNonAffectees = new Hashtable<Integer, Tache>();
 	private static Hashtable<Integer, Tache> lesTaches = new Hashtable<Integer, Tache>();
 	
 	public Tache(String libelle, Horaire debut){
@@ -54,10 +56,15 @@ public abstract class Tache implements Comparable<Tache> {
 		return idTache;
 	}
 	
+
 	public static ArrayList<Tache> trier(Hashtable h){
 		ArrayList<Tache> liste = new ArrayList<Tache>(h.values());
 		Collections.sort(liste);
 		return liste;
+	}
+	
+	public static Hashtable<Integer, Tache> listeTachesNonAffectees(){
+		return lesTachesNonAffectees;
 	}
 
 	@Override

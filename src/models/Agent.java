@@ -60,6 +60,7 @@ public abstract class Agent implements Comparable<Agent>{
 			return true;
 		}
 		else{
+			Tache.listeTachesNonAffectees().put(t.getIdTache(), t);
 			return false;
 		}		
 	}
@@ -67,22 +68,21 @@ public abstract class Agent implements Comparable<Agent>{
 	public void affectationTachesAccueil(){
 		ArrayList<Tache> taches = Tache.trier(lesTaches);
 		ArrayList<TrancheHoraire> Tranchehoraires = new ArrayList<TrancheHoraire>();
-		Horaire test = new Horaire(30);
+		Duree test = new Duree(30);
 		
 		// Debut
 		if(taches.get(0).getDebut().retrait(getHoraire().getDebutTrancheHoraire()).compareTo(test) >= 30)
-			Tranchehoraires.add(new TrancheHoraire(getHoraire().getDebutTrancheHoraire(), taches.get(0).getDebut()));
+			affecterTache(new TacheAccueil("Accueil", getHoraire().getDebutTrancheHoraire(), taches.get(0).getDebut()));
 		
 		// Ensemble des tâches
 		for (int i = 1; i < taches.size()-1; i++) {
 			if(taches.get(i).getDebut().retrait(taches.get(i-1).getFin()).compareTo(test) >= 30)
-				Tranchehoraires.add(new TrancheHoraire(taches.get(i-1).getFin(), taches.get(i).getDebut()));
+				affecterTache(new TacheAccueil("Accueil", taches.get(i-1).getFin(), taches.get(i).getDebut()));
 		}
 		
 		// Fin
 		if( getHoraire().getFinTrancheHoraire().retrait( taches.get(taches.size()-1).getFin()).compareTo(test) >= 30)
-			Tranchehoraires.add(new TrancheHoraire(taches.get(taches.size()-1).getFin(), getHoraire().getFinTrancheHoraire()));
-					
+			affecterTache(new TacheAccueil("Accueil", taches.get(taches.size()-1).getFin(), getHoraire().getFinTrancheHoraire()));	
 	}
 	
 	public String getMatricule() {
@@ -127,9 +127,10 @@ public abstract class Agent implements Comparable<Agent>{
 	
 	public String toString(){
 		String res = this.matricule +" - "+ this.nom + this.prenom + " - "+ getHoraire() + "\nListe des tâches affectées :\n";
-		Enumeration<Tache> liste = lesTaches.elements();
-		while(liste.hasMoreElements())
-			res += "\t"+ (Tache)liste.nextElement() +"\n";
+		ArrayList<Tache> liste = Tache.trier(lesTaches);
+		for(Tache t : liste){
+			res += "\t"+ t +"\n";
+		}
 		return res;
 	}
 	

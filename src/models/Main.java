@@ -30,6 +30,7 @@ public class Main {
 		/*for(int i=0;i<20;i++){
 			System.out.println(Agent.getHRepas());
 		}*/
+		
 		mc.genererPlanning();
 		ArrayList<Agent> ag = Agent.trier(Agent.getLesAgents());
 		int i = 0;
@@ -38,6 +39,8 @@ public class Main {
 			i+= a.getLesTaches().size();
 		}
 		System.out.println(i);
+		System.out.println(Tache.listeTachesNonAffectees());
+		System.out.println(Tache.listeTachesNonAffectees().size());
 		
 		//System.out.println(Tache.trier(TacheRepas.getLesTachesRepas()));
 		

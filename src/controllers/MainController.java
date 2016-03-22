@@ -84,10 +84,13 @@ public class MainController implements ActionListener{
 			atp.get(i).affecterTache(new TacheRepas("Repas", atp.get(i).getHRepas()));
 		}
 		ArrayList<Tache> tv = Tache.trier(TacheVol.getLesTachesVol());
+		ArrayList<Agent> a = Agent.trier(Agent.getLesAgents());
 		for(Tache t : tv){
-			ArrayList<Agent> a = Agent.trier(Agent.getLesAgents());
 			int i = 0;
 			while(i<a.size() && !a.get(i).affecterTache(t)){ i++; }
+		}
+		for(int i=0; i<a.size();i++){
+			a.get(i).affectationTachesAccueil();
 		}
 	}
 
