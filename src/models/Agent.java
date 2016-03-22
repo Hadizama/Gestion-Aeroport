@@ -57,6 +57,7 @@ public abstract class Agent implements Comparable<Agent>{
 		if(estDisponible(t.getDebut(), t.getFin()) && resteTempsTravail(t)){
 			getLesTaches().put(t.getIdTache(), t);
 			setNbHeure(getNbHeure().retirer(t.getDuree()));
+			Tache.listeTachesNonAffectees().remove(t.getIdTache());
 			return true;
 		}
 		else{
@@ -121,7 +122,7 @@ public abstract class Agent implements Comparable<Agent>{
 			if(h == 11)
 				m = (int) (Math.random()*29+30);
 			horaire = new Horaire(h, m);
-		} while(!getHoraire().contient(horaire));
+		} while(!getHoraire().contient(horaire) || !getHoraire().contient(horaire.ajout(new Duree(1,0))) );
 		return horaire;
 	}
 	

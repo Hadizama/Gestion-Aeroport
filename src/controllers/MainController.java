@@ -92,6 +92,9 @@ public class MainController implements ActionListener{
 		for(int i=0; i<a.size();i++){
 			a.get(i).affectationTachesAccueil();
 		}
+		
+		System.out.println(TacheRepas.getLesTachesRepas().size());
+
 	}
 
 
