@@ -68,22 +68,32 @@ public abstract class Agent implements Comparable<Agent>{
 	
 	public void affectationTachesAccueil(){
 		ArrayList<Tache> taches = Tache.trier(lesTaches);
-		ArrayList<TrancheHoraire> Tranchehoraires = new ArrayList<TrancheHoraire>();
-		Duree test = new Duree(30);
-		
+		System.out.println(taches);
+		Duree free;
+		Horaire fin;
+
 		// Debut
-		if(taches.get(0).getDebut().retrait(getHoraire().getDebutTrancheHoraire()).compareTo(test) >= 30)
-			affecterTache(new TacheAccueil("Accueil", getHoraire().getDebutTrancheHoraire(), taches.get(0).getDebut()));
+		free = taches.get(0).getDebut().retrait(getHoraire().getDebutTrancheHoraire());
+		if(free.dureeEnMinutes() >= 30){
+			fin = (free.dureeEnMinutes() >= getNbHeure().dureeEnMinutes()) ? taches.get(0).getDebut() : getHoraire().getDebutTrancheHoraire().ajout(getNbHeure());
+			affecterTache(new TacheAccueil("Accueil 1", getHoraire().getDebutTrancheHoraire(), fin));
+		}
 		
 		// Ensemble des tâches
 		for (int i = 1; i < taches.size()-1; i++) {
-			if(taches.get(i).getDebut().retrait(taches.get(i-1).getFin()).compareTo(test) >= 30)
-				affecterTache(new TacheAccueil("Accueil", taches.get(i-1).getFin(), taches.get(i).getDebut()));
+			free = taches.get(i).getDebut().retrait(taches.get(i-1).getFin());
+			if(free.dureeEnMinutes() >= 30){
+				fin = (free.dureeEnMinutes() >= getNbHeure().dureeEnMinutes()) ? taches.get(i).getDebut() : taches.get(i-1).getFin().ajout(getNbHeure());
+				affecterTache(new TacheAccueil("Accueil 2", taches.get(i-1).getFin(), fin));
+			}
 		}
 		
 		// Fin
-		if( getHoraire().getFinTrancheHoraire().retrait( taches.get(taches.size()-1).getFin()).compareTo(test) >= 30)
-			affecterTache(new TacheAccueil("Accueil", taches.get(taches.size()-1).getFin(), getHoraire().getFinTrancheHoraire()));	
+		free = getHoraire().getFinTrancheHoraire().retrait( taches.get(taches.size()-1).getFin());
+		if(free.dureeEnMinutes() >= getNbHeure().dureeEnMinutes()){
+			fin = (free.compareTo(getNbHeure())>=0) ? getHoraire().getFinTrancheHoraire() : taches.get(taches.size()-1).getFin().ajout(getNbHeure());
+			affecterTache(new TacheAccueil("Accueil 3", taches.get(taches.size()-1).getFin(), fin));	
+		}
 	}
 	
 	public String getMatricule() {

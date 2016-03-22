@@ -32,13 +32,13 @@ public class Main {
 		}*/
 		
 		mc.genererPlanning();
-		ArrayList<Agent> ag = Agent.trier(Agent.getLesAgents());
-		int i = 0;
-		for(Agent a : ag){
-			System.out.println(a);
-			i+= a.getLesTaches().size();
-		}
-		System.out.println(i);
+//		ArrayList<Agent> ag = Agent.trier(Agent.getLesAgents());
+//		int i = 0;
+//		for(Agent a : ag){
+//			System.out.println(a);
+//			i+= a.getLesTaches().size();
+//		}
+//		System.out.println(i);
 		System.out.println(Tache.listeTachesNonAffectees());
 		System.out.println(Tache.listeTachesNonAffectees().size());
 		
