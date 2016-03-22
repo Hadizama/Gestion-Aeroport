@@ -64,6 +64,27 @@ public abstract class Agent implements Comparable<Agent>{
 		}		
 	}
 	
+	public void affectationTachesAccueil(){
+		ArrayList<Tache> taches = Tache.trier(lesTaches);
+		ArrayList<TrancheHoraire> Tranchehoraires = new ArrayList<TrancheHoraire>();
+		Horaire test = new Horaire(30);
+		
+		// Debut
+		if(taches.get(0).getDebut().retrait(getHoraire().getDebutTrancheHoraire()).compareTo(test) >= 30)
+			Tranchehoraires.add(new TrancheHoraire(getHoraire().getDebutTrancheHoraire(), taches.get(0).getDebut()));
+		
+		// Ensemble des tâches
+		for (int i = 1; i < taches.size()-1; i++) {
+			if(taches.get(i).getDebut().retrait(taches.get(i-1).getFin()).compareTo(test) >= 30)
+				Tranchehoraires.add(new TrancheHoraire(taches.get(i-1).getFin(), taches.get(i).getDebut()));
+		}
+		
+		// Fin
+		if( getHoraire().getFinTrancheHoraire().retrait( taches.get(taches.size()-1).getFin()).compareTo(test) >= 30)
+			Tranchehoraires.add(new TrancheHoraire(taches.get(taches.size()-1).getFin(), getHoraire().getFinTrancheHoraire()));
+					
+	}
+	
 	public String getMatricule() {
 		return matricule;
 	}
@@ -82,8 +103,7 @@ public abstract class Agent implements Comparable<Agent>{
 
 	public Hashtable<Integer, Tache> getLesTaches() {
 		return lesTaches;
-	}
-	
+	}	
 	
 	public static Hashtable<String, Agent> getLesAgents() {
 		return lesAgents;
