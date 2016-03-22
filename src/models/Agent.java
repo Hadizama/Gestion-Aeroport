@@ -8,6 +8,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
+import controllers.MainController;
+
 public abstract class Agent implements Comparable<Agent>{
 
 	private String matricule, nom, prenom;
@@ -61,6 +63,7 @@ public abstract class Agent implements Comparable<Agent>{
 			return true;
 		}
 		else{
+			if(!t.getClass().equals(TacheAccueil.class))
 			Tache.listeTachesNonAffectees().put(t.getIdTache(), t);
 			return false;
 		}		
@@ -68,31 +71,44 @@ public abstract class Agent implements Comparable<Agent>{
 	
 	public void affectationTachesAccueil(){
 		ArrayList<Tache> taches = Tache.trier(lesTaches);
-		System.out.println(taches);
 		Duree free;
 		Horaire fin;
-
-		// Debut
-		free = taches.get(0).getDebut().retrait(getHoraire().getDebutTrancheHoraire());
-		if(free.dureeEnMinutes() >= 30){
-			fin = (free.dureeEnMinutes() >= getNbHeure().dureeEnMinutes()) ? taches.get(0).getDebut() : getHoraire().getDebutTrancheHoraire().ajout(getNbHeure());
-			affecterTache(new TacheAccueil("Accueil 1", getHoraire().getDebutTrancheHoraire(), fin));
+		if(taches.size() == 0){
+			// ??????????????
 		}
-		
-		// Ensemble des tâches
-		for (int i = 1; i < taches.size()-1; i++) {
-			free = taches.get(i).getDebut().retrait(taches.get(i-1).getFin());
+		else{
+			// Debut
+			free = taches.get(0).getDebut().retrait(getHoraire().getDebutTrancheHoraire());
 			if(free.dureeEnMinutes() >= 30){
-				fin = (free.dureeEnMinutes() >= getNbHeure().dureeEnMinutes()) ? taches.get(i).getDebut() : taches.get(i-1).getFin().ajout(getNbHeure());
-				affecterTache(new TacheAccueil("Accueil 2", taches.get(i-1).getFin(), fin));
+				fin = (free.dureeEnMinutes() <= getNbHeure().dureeEnMinutes()) ? taches.get(0).getDebut() : getHoraire().getDebutTrancheHoraire().ajout(getNbHeure());
+				if(fin.retrait(getHoraire().getDebutTrancheHoraire()).dureeEnMinutes() >= 30){
+					affecterTache(new TacheAccueil("Accueil 1", getHoraire().getDebutTrancheHoraire(), fin));
+					MainController.xxx++;
+				}
 			}
-		}
-		
-		// Fin
-		free = getHoraire().getFinTrancheHoraire().retrait( taches.get(taches.size()-1).getFin());
-		if(free.dureeEnMinutes() >= getNbHeure().dureeEnMinutes()){
-			fin = (free.compareTo(getNbHeure())>=0) ? getHoraire().getFinTrancheHoraire() : taches.get(taches.size()-1).getFin().ajout(getNbHeure());
-			affecterTache(new TacheAccueil("Accueil 3", taches.get(taches.size()-1).getFin(), fin));	
+			
+			// Ensemble des tâches
+			for (int i = 1; i < taches.size()-1; i++) {
+				free = taches.get(i).getDebut().retrait(taches.get(i-1).getFin());
+				if(free.dureeEnMinutes() >= 30){
+					fin = (free.dureeEnMinutes() <= getNbHeure().dureeEnMinutes()) ? taches.get(i).getDebut() : taches.get(i-1).getFin().ajout(getNbHeure());
+					if(fin.retrait(taches.get(i-1).getFin()).dureeEnMinutes() >= 30){
+						affecterTache(new TacheAccueil("Accueil 2", taches.get(i-1).getFin(), fin));
+						MainController.xxx++;
+					}
+				}
+			}
+//			
+//			// Fin
+			free = getHoraire().getFinTrancheHoraire().retrait( taches.get(taches.size()-1).getFin());
+//			free = (free.dureeEnMinutes() >= getNbHeure().dureeEnMinutes()) ? getNbHeure() : free;
+			if(free.dureeEnMinutes() >= 30 && getNbHeure().dureeEnMinutes() >=30){
+				free = (free.dureeEnMinutes() >= getNbHeure().dureeEnMinutes()) ? getNbHeure() : free;
+				fin = ( (taches.get(taches.size()-1).getFin().ajout(free)).compareTo(getHoraire().getFinTrancheHoraire()) <= 0 ) ? taches.get(taches.size()-1).getFin().ajout(free) : getHoraire().getFinTrancheHoraire();
+//				fin = (free.dureeEnMinutes() <= getNbHeure().dureeEnMinutes()) ? getHoraire().getFinTrancheHoraire() : taches.get(taches.size()-1).getFin().ajout(getNbHeure());
+					affecterTache(new TacheAccueil("Accueil 3", taches.get(taches.size()-1).getFin(), taches.get(taches.size()-1).getFin().ajout(free)));	
+			}
+			
 		}
 	}
 	

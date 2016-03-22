@@ -78,6 +78,8 @@ public class MainController implements ActionListener{
 		
 	}
 	
+	public static int xxx = 0;
+	
 	public void genererPlanning(){
 		ArrayList<Agent> atp = Agent.trier(AgentTempsPlein.getLesAgentsTempsPlein());
 		for(int i=0; i<atp.size(); i++){
@@ -93,7 +95,9 @@ public class MainController implements ActionListener{
 			a.get(i).affectationTachesAccueil();
 		}
 		
-		System.out.println(TacheRepas.getLesTachesRepas().size());
+		System.out.println(xxx);
+		
+//		System.out.println(TacheRepas.getLesTachesRepas().size());
 
 	}
 
