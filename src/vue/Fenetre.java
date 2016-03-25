@@ -49,6 +49,7 @@ public class Fenetre extends JFrame implements Observer {
 			gestionAgents.addActionListener(controleur);
 			panelboutons.add(gestionAgents);
 			JButton planning = new JButton("Générer le planning");
+			planning.setBackground(Color.GREEN);
 			planning.addActionListener(controleur);
 			panelboutons.add(planning);
 			vueAccueil.add(panelboutons, BorderLayout.NORTH);

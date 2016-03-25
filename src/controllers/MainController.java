@@ -38,10 +38,9 @@ public class MainController implements ActionListener{
 			break;
 
 		case "Gestion des agents":
-			frame.setVue(new VueAgents());
+			frame.setVue(new VueAgents(frame));
 			break;
 		}
-		
 	}
 	
 	public void importationFichiers(){
@@ -115,28 +114,6 @@ public class MainController implements ActionListener{
 		for(int i=0; i<a.size();i++){
 			a.get(i).affectationTachesAccueil();
 		}
-	}
-	
-	public String[][] getAgents(){
-		String[][] res = new String[Agent.getLesAgents().size()][];
-		ArrayList<Agent> atp = Agent.trier(Agent.getLesAgents());
-		int i=0;
-		for (Agent a : atp) {
-			String[] v = {a.getNom(), a.getPrenom(), a.getHoraire().toString(), a.getMatricule()};
-			res[i] = v;
-			i++;
-		}
-		return res;
-	}
-
-	public void signalerAbsence(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void afficherPlanningAgent(String string) {
-		// TODO Auto-generated method stub
-		
 	}
 
 
