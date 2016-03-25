@@ -2,8 +2,6 @@ package models;
 
 import java.util.Hashtable;
 
-import exceptions.InvalidTacheRepas;
-
 
 public class TacheRepas extends Tache {
 	

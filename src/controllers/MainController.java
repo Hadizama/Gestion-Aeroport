@@ -3,30 +3,45 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import vue.PanelAccueil;
 import models.*;
-import vue.FenetreAccueil;
 
 public class MainController implements ActionListener{
 	
-	private FenetreAccueil vueAccueil;
+	private JPanel vue;
 
-	public MainController (FenetreAccueil vueAccueil) {
-		this.vueAccueil = vueAccueil;
+	public MainController (JPanel v) {
+		this.vue = v;
 		importationFichiers();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		System.out.println(arg0.getActionCommand());
+		switch (arg0.getActionCommand()) {
+		case "Générer le planning":
+			this.genererPlanning();
+			JOptionPane.showMessageDialog(vue, "La planning à été généré avec succés !", null, 1);
+			((PanelAccueil)this.vue).changeBtn();
+			break;
+
+		default:
+			break;
+		}
+		
 	}
 	
 	private void importationFichiers(){
+		String lvl = "Avions";
 		try{
 			BufferedReader entree = new BufferedReader	(new FileReader("./ressources/avions16-v1.txt"));
 			String ligne= null;
@@ -35,6 +50,7 @@ public class MainController implements ActionListener{
 				new Avion(decoupe.nextToken(), decoupe.nextToken(), Integer.parseInt(decoupe.nextToken()));
 			}
 			
+			lvl = "Agents Mi-Temps";
 			entree = new BufferedReader	(new FileReader("./ressources/AgentsMiTemps-16-v1.txt"));
 			ligne= null;
 			while ((ligne = entree.readLine())!=null){			
@@ -42,6 +58,7 @@ public class MainController implements ActionListener{
 				new AgentMiTemps(decoupe.nextToken(), decoupe.nextToken(), decoupe.nextToken(), Integer.parseInt(decoupe.nextToken()));
 			}
 			
+			lvl = "Agents Temps Plein";
 			entree = new BufferedReader	(new FileReader("./ressources/AgentsTempsPlein-16-v1.txt"));
 			ligne= null;
 			while ((ligne = entree.readLine())!=null){			
@@ -49,6 +66,7 @@ public class MainController implements ActionListener{
 				new AgentTempsPlein(decoupe.nextToken(), decoupe.nextToken(), decoupe.nextToken(), Integer.parseInt(decoupe.nextToken()));
 			}
 			
+			lvl = "Vols Départs";
 			entree = new BufferedReader	(new FileReader("./ressources/ProgrammeVolsDeparts16-v2.txt"));
 			ligne= null;
 			while ((ligne = entree.readLine())!=null){			
@@ -61,6 +79,7 @@ public class MainController implements ActionListener{
 					);
 			}
 			
+			lvl = "Vols Arrivées";
 			entree = new BufferedReader	(new FileReader("./ressources/ProgrammeVolsArrivees16-v2.txt"));
 			ligne= null;
 			while ((ligne = entree.readLine())!=null){			
@@ -73,12 +92,10 @@ public class MainController implements ActionListener{
 					);
 			}
 		} catch (NumberFormatException | IOException e) {
-			e.printStackTrace();
+			System.out.println("Erreur d'importation du fichier :\"" + lvl +"\"");
 		}
-		
 	}
 	
-	public static int xxx = 0;
 	
 	public void genererPlanning(){
 		ArrayList<Agent> atp = Agent.trier(AgentTempsPlein.getLesAgentsTempsPlein());
@@ -94,11 +111,6 @@ public class MainController implements ActionListener{
 		for(int i=0; i<a.size();i++){
 			a.get(i).affectationTachesAccueil();
 		}
-		
-		System.out.println(xxx);
-		
-//		System.out.println(TacheRepas.getLesTachesRepas().size());
-
 	}
 
 
