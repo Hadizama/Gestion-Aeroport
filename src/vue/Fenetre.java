@@ -55,8 +55,9 @@ public class Fenetre extends JFrame implements Observer {
 		
 		this.setTitle("Gestion du personnel d'un aéroport");
 		this.setLayout(new BorderLayout());
+		this.vue = new JPanel();
 		this.add(vueAccueil, BorderLayout.NORTH);
-		this.add(new JPanel(), BorderLayout.CENTER);
+		this.add(vue, BorderLayout.CENTER);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
