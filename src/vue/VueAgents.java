@@ -20,11 +20,12 @@ import controllers.MainController;
 public class VueAgents extends JPanel {
 	
 	private Fenetre frame;
+	private AgentController controleur;
 	private String[] infos;
 	
 	public VueAgents(Fenetre f){
 		this.frame = f;
-		AgentController controleur = new AgentController(frame, this);
+		controleur = new AgentController(frame, this);
 		String[][] agents = controleur.getAgents();
 		
 		JPanel listing = new JPanel();
