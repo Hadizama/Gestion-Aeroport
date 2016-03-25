@@ -8,6 +8,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import controllers.MainController;
+import vue.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -32,15 +33,35 @@ public class Fenetre extends JFrame implements Observer {
 	private JPanel vue;
 	
 	public Fenetre() {
+		
+			// Menu
+			JPanel vueAccueil = new JPanel();
+			vueAccueil.setLayout(new BorderLayout());
+			MainController controleur = new MainController(this, vueAccueil); 
+			controleur.importationFichiers();
+			JPanel panelboutons = new JPanel();
+			panelboutons.setLayout(new GridLayout(1,3));
+			panelboutons.setPreferredSize(new Dimension(250, 50));
+			JButton gestionVols = new JButton("Gestion des vols");
+			gestionVols.addActionListener(controleur);
+			panelboutons.add(gestionVols);
+			JButton gestionAgents = new JButton("Gestion des agents");
+			gestionAgents.addActionListener(controleur);
+			panelboutons.add(gestionAgents);
+			JButton planning = new JButton("Générer le planning");
+			planning.addActionListener(controleur);
+			panelboutons.add(planning);
+			vueAccueil.add(panelboutons, BorderLayout.NORTH);
+		
 		this.setTitle("Gestion du personnel d'un aéroport");
-		this.vue = new PanelAccueil();
 		this.setLayout(new BorderLayout());
-		this.add(new VueAccueil(), BorderLayout.NORTH);
-		this.add(vue, BorderLayout.CENTER);
+		this.add(vueAccueil, BorderLayout.NORTH);
+		this.add(new JPanel(), BorderLayout.CENTER);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		
 	}
 	
 	public void setVue(JPanel v){
@@ -48,7 +69,6 @@ public class Fenetre extends JFrame implements Observer {
 			this.remove(this.vue);
 		this.vue = v;
 		this.add(this.vue);
-		this.repaint();
 		this.pack();
 	}
 

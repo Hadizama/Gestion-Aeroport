@@ -9,19 +9,23 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import vue.PanelAccueil;
+import vue.Fenetre;
+import vue.VueAgents;
 import models.*;
 
 public class MainController implements ActionListener{
 	
+	private Fenetre frame;
 	private JPanel vue;
 
-	public MainController (JPanel v) {
+	public MainController (Fenetre f, JPanel v) {
+		if(f!=null)
+			this.frame = f;
 		this.vue = v;
-		importationFichiers();
 	}
 
 	@Override
@@ -31,16 +35,16 @@ public class MainController implements ActionListener{
 		case "Générer le planning":
 			this.genererPlanning();
 			JOptionPane.showMessageDialog(vue, "La planning à été généré avec succés !", null, 1);
-			((PanelAccueil)this.vue).changeBtn();
 			break;
 
-		default:
+		case "Gestion des agents":
+			frame.setVue(new VueAgents());
 			break;
 		}
 		
 	}
 	
-	private void importationFichiers(){
+	public void importationFichiers(){
 		String lvl = "Avions";
 		try{
 			BufferedReader entree = new BufferedReader	(new FileReader("./ressources/avions16-v1.txt"));
@@ -111,6 +115,28 @@ public class MainController implements ActionListener{
 		for(int i=0; i<a.size();i++){
 			a.get(i).affectationTachesAccueil();
 		}
+	}
+	
+	public String[][] getAgents(){
+		String[][] res = new String[Agent.getLesAgents().size()][];
+		ArrayList<Agent> atp = Agent.trier(Agent.getLesAgents());
+		int i=0;
+		for (Agent a : atp) {
+			String[] v = {a.getNom(), a.getPrenom(), a.getHoraire().toString(), a.getMatricule()};
+			res[i] = v;
+			i++;
+		}
+		return res;
+	}
+
+	public void signalerAbsence(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void afficherPlanningAgent(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
