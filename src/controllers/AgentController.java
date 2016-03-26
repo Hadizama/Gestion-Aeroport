@@ -4,10 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import models.Agent;
 import vue.Fenetre;
+import vue.ResultFrame;
 
 public class AgentController implements ActionListener{
 
@@ -22,7 +24,12 @@ public class AgentController implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		//
+		JButton btn = (JButton)arg0.getSource();
+		switch (arg0.getActionCommand()) {
+		case "Afficher planning":
+			afficherPlanningAgent(btn.getName());
+			break;
+		}
 	}
 	
 	public String[][] getAgents(){
@@ -42,9 +49,13 @@ public class AgentController implements ActionListener{
 		
 	}
 
-	public void afficherPlanningAgent(String string) {
-		// TODO Auto-generated method stub
-		
+	public void afficherPlanningAgent(String key) {
+		if(Agent.getLesAgents().containsKey(key)){
+			if(Agent.getLesAgents().get(key).getLesTaches().size() == 0)
+				new ResultFrame("Vous devez d'abord générer le planning (Bouton vert en haut à droie)");
+			else
+				new ResultFrame(Agent.getLesAgents().get(key).toString());
+		}		
 	}
 
 }

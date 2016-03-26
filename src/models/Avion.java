@@ -37,8 +37,7 @@ public class Avion {
 
 	@Override
 	public String toString() {
-		return "Avion [matriculeAvion=" + matriculeAvion + ", modele=" + modele
-				+ ", capacite=" + capacite + "]";
+		return modele+" ["+capacite+" places] - ("+matriculeAvion+")";
 	}
 
 	

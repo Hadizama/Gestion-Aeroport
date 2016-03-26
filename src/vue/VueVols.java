@@ -14,37 +14,42 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
-import controllers.AgentController;
+import controllers.VolController;
 import controllers.MainController;
 
-public class VueAgents extends JPanel {
+public class VueVols extends JPanel {
 	
 	private Fenetre frame;
 	private String[] infos;
 	
-	public VueAgents(Fenetre f){
+	public VueVols(Fenetre f){
 		this.frame = f;
-		AgentController controleur = new AgentController(frame, this);
-		String[][] agents = controleur.getAgents();
+		VolController controleur = new VolController(frame, this);
+		String[][] vols = controleur.getVols();
 		
 		JPanel listing = new JPanel();
-		listing.setLayout(new GridLayout(agents.length, 1));
+		listing.setLayout(new GridLayout(vols.length, 1));
 				
-		for (String[] inf : agents) {
+		for (String[] inf : vols) {
 			this.infos = inf;
 			JPanel ag = new JPanel();
 			ag.setLayout(new GridLayout(1,5));
 			ag.add(new JLabel(infos[0]));
 			ag.add(new JLabel(infos[1]));
 			ag.add(new JLabel(infos[2]));
-			JButton b = new JButton("Signaler absence");
+//			ag.add(new JLabel(infos[3]));
+			JButton b = new JButton("Retarder vol");
 			b.addActionListener(controleur);
-			b.setName(infos[3]);
+			b.setName(infos[0]);
 			ag.add(b);
-			JButton b2 = new JButton("Afficher planning");
-			b2.setName(infos[3]);
+			JButton b2 = new JButton("Annuler vol");
+			b2.setName(infos[0]);
 			b2.addActionListener(controleur);
 			ag.add(b2);
+			JButton b3 = new JButton("Afficher planning");
+			b3.setName(infos[0]);
+			b3.addActionListener(controleur);
+			ag.add(b3);
 			listing.add(ag);
 		}
 		

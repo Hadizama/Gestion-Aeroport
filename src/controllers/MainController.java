@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import vue.Fenetre;
 import vue.VueAgents;
+import vue.VueVols;
 import models.*;
 
 public class MainController implements ActionListener{
@@ -30,7 +31,6 @@ public class MainController implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		System.out.println(arg0.getActionCommand());
 		switch (arg0.getActionCommand()) {
 		case "Générer le planning":
 			this.genererPlanning();
@@ -40,7 +40,10 @@ public class MainController implements ActionListener{
 		case "Gestion des agents":
 			frame.setVue(new VueAgents(frame));
 			break;
-		}
+		case "Gestion des vols":
+			frame.setVue(new VueVols(frame));
+			break;
+		}			
 	}
 	
 	public void importationFichiers(){

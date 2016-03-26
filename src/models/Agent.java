@@ -81,19 +81,19 @@ public abstract class Agent implements Comparable<Agent>{
 			// Debut
 			free = taches.get(0).getDebut().retrait(getHoraire().getDebutTrancheHoraire());
 			if(free.dureeEnMinutes() >= 30)
-				affecterTache(new TacheAccueil("Accueil 1", getHoraire().getDebutTrancheHoraire(), taches.get(0).getDebut()));
+				affecterTache(new TacheAccueil("Accueil", getHoraire().getDebutTrancheHoraire(), taches.get(0).getDebut()));
 			
 			// Ensemble des tâches
 			for (int i = 1; i < taches.size()-1; i++) {
 				free = taches.get(i).getDebut().retrait(taches.get(i-1).getFin());
 				if(free.dureeEnMinutes() >= 30)
-					affecterTache(new TacheAccueil("Accueil 2", taches.get(i-1).getFin(), taches.get(i).getDebut()));
+					affecterTache(new TacheAccueil("Accueil", taches.get(i-1).getFin(), taches.get(i).getDebut()));
 			}
 			
 			// Fin
 			free = getHoraire().getFinTrancheHoraire().retrait(taches.get(taches.size()-1).getFin());
 			if(free.dureeEnMinutes() >= 30)
-				affecterTache(new TacheAccueil("Accueil 3", taches.get(taches.size()-1).getFin(), getHoraire().getFinTrancheHoraire()));	
+				affecterTache(new TacheAccueil("Accueil", taches.get(taches.size()-1).getFin(), getHoraire().getFinTrancheHoraire()));	
 			
 		}
 	}
@@ -139,7 +139,7 @@ public abstract class Agent implements Comparable<Agent>{
 	}
 	
 	public String toString(){
-		String res = this.matricule +" - "+ this.nom + this.prenom + " - "+ getHoraire() + "\nListe des tâches affectées :\n";
+		String res = this.matricule +" - "+ this.nom + this.prenom + " - "+ getHoraire() + "\n\nListe des tâches affectées :\n";
 		ArrayList<Tache> liste = Tache.trier(lesTaches);
 		for(Tache t : liste){
 			res += "\t"+ t +"\n";

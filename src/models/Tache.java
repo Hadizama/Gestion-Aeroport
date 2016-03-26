@@ -69,7 +69,7 @@ public abstract class Tache implements Comparable<Tache> {
 
 	@Override
 	public String toString() {
-		return " - "+ libelle + "["+ debut +" - "+ fin +"] soit "+ duree + "\n";
+		return " - "+ libelle + " ["+ debut +" - "+ fin +"] soit "+ duree + "\n";
 	}
 	
 	@Override

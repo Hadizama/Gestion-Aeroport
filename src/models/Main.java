@@ -12,7 +12,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		MainController mc = new MainController(null);
+//		MainController mc = new MainController(null);
 		
 		
 		/*AgentTempsPlein a = new AgentTempsPlein("sfsdfsdfds", "José", "Bové", 2);
@@ -31,7 +31,7 @@ public class Main {
 			System.out.println(Agent.getHRepas());
 		}*/
 		
-		mc.genererPlanning();
+//		mc.genererPlanning();
 //		ArrayList<Agent> ag = Agent.trier(Agent.getLesAgents());
 //		int i = 0;
 //		for(Agent a : ag){
@@ -39,8 +39,8 @@ public class Main {
 //			i+= a.getLesTaches().size();
 //		}
 //		System.out.println(i);
-		System.out.println(Tache.listeTachesNonAffectees());
-		System.out.println(Tache.listeTachesNonAffectees().size());
+//		System.out.println(Tache.listeTachesNonAffectees());
+//		System.out.println(Tache.listeTachesNonAffectees().size());
 		
 		//System.out.println(Tache.trier(TacheRepas.getLesTachesRepas()));
 		

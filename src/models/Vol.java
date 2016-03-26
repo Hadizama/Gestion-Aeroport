@@ -1,8 +1,10 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 
-public abstract class Vol {
+public abstract class Vol implements Comparable<Vol> {
 	
 	private String numeroVol, provenance;
 	private Horaire horaire;
@@ -40,12 +42,18 @@ public abstract class Vol {
 
 	@Override
 	public String toString() {
-		return "Vol [numeroVol=" + numeroVol + ", provenance=" + provenance
-				+ ", horaire=" + horaire + ", avion=" + avion + "]"+"\n";
+		return "Vol numéro "+numeroVol+" en provenance de "+provenance+" pour "+horaire+" avec un "+avion;
 	}
 	
+	public static ArrayList<Vol> trier(Hashtable<String, Vol> h){
+		ArrayList<Vol> liste = new ArrayList<Vol>(h.values());
+		Collections.sort(liste);
+		return liste;
+	}
 	
-		
-	
+	@Override
+	public int compareTo(Vol v){    	
+		return getHoraire().compareTo(v.getHoraire());
+    }
 
 }
