@@ -60,7 +60,7 @@ public abstract class Agent implements Comparable<Agent>{
 	}
 	
 	public boolean affecterTache(Tache t) {
-		if(estDisponible(t.getDebut(), t.getFin()) && resteTempsTravail(t)){
+		if(estDisponible(t.getDebut(), t.getFin()) && resteTempsTravail(t) && !isAbsent()){
 			getLesTaches().put(t.getIdTache(), t);
 			setNbHeure(getNbHeure().retirer(t.getDuree()));
 			Tache.listeTachesNonAffectees().remove(t.getIdTache());
@@ -101,17 +101,43 @@ public abstract class Agent implements Comparable<Agent>{
 		}
 	}
 	
-	public static void reaffecterTache(Tache t){
-		
+	public static void reaffecterTache(){
+		ArrayList<Tache> ltna = Tache.trier(Tache.listeTachesNonAffectees());
+		ArrayList<Agent> agents = Agent.trier(lesAgents);
+		for(Tache t: ltna){
+			boolean affecte = false;
+			int i = 0;
+			while(!affecte && i<agents.size()){
+				if(!agents.get(i).isAbsent())
+					affecte = agents.get(i).affecterTache(t);
+				i++;
+			}
+			i = 0;
+			while(i<TacheAccueil.getLesTachesAccueil().size() && !affecte){
+				Tache ta = Tache.trier(TacheAccueil.getLesTachesAccueil()).get(i);
+				TrancheHoraire th = new TrancheHoraire(ta.getDebut(), ta.getFin());
+				if((new TrancheHoraire(t.getDebut(), t.getFin()).dansTrancheHoraire(th)) && ta.getAgent() != null){
+					Agent a = ta.getAgent();
+					a.desaffecterTache(ta);
+					affecte = a.affecterTache(t);
+					if(affecte){
+						a.affectationTachesAccueil();
+					}
+				}				
+				i++;
+			}
+			
+		}
 	}
 	
-	public void desaffecterTache(Tache t){
+	public boolean desaffecterTache(Tache t){
 		if(lesTaches.containsKey(t.getIdTache())){
-			lesTaches.remove(t);
-			if(t.getDuree().dureeEnMinutes() >= 30){
-				affecterTache(new TacheAccueil("Accueil", t.getDebut(), t.getFin()));
-			}
+			setNbHeure(getNbHeure().ajout(t.getDuree()));
+			lesTaches.remove(t.getIdTache());
+			t.setAgent(null);
+			return true;
 		}
+		return false;
 	}
 	
 	public String getMatricule() {
@@ -139,11 +165,12 @@ public abstract class Agent implements Comparable<Agent>{
 	}
 
 	public void resetTache(){
-		ArrayList<Tache> listeT = Tache.trier(getLesTaches());
+		ArrayList<Tache> listeT = Tache.trier(lesTaches);
 		for(Tache t : listeT){
-			Tache.listeTachesNonAffectees().put(t.getIdTache(), t);
+			if(!t.getClass().equals(TacheAccueil.class) && !t.getClass().equals(TacheRepas.class))
+				Tache.listeTachesNonAffectees().put(t.getIdTache(), t);
 		}
-		getLesTaches().clear();
+		lesTaches.clear();
 	}
 	
 	public Horaire getHRepas(){

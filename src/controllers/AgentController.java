@@ -53,10 +53,13 @@ public class AgentController implements ActionListener{
 
 	public void signalerAbsence(String key) {
 		Hashtable<String, Agent> a = Agent.getLesAgents();
-		if(a.containsKey(key)){
-			a.get(key).setAbsent(true);
-			a.get(key).resetTache();
-		}		
+		if(!a.get(key).isAbsent()){
+			if(a.containsKey(key)){
+				a.get(key).setAbsent(true);
+				a.get(key).resetTache();
+				Agent.reaffecterTache();
+			}
+		}
 	}
 
 	public void afficherPlanningAgent(String key) {
