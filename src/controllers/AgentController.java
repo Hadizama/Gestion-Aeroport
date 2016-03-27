@@ -1,5 +1,6 @@
 package controllers;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -35,6 +36,13 @@ public class AgentController implements ActionListener{
 			break;
 		case "Signaler absence":
 			signalerAbsence(btn.getName());
+			btn.getParent().setBackground(Color.ORANGE);
+			btn.setText("Retour agent");
+			break;
+		case "Retour agent":
+			retourAgent(btn.getName());
+			btn.getParent().setBackground(null);
+			btn.setText("Signaler absence");
 			break;
 		}
 	}
@@ -60,6 +68,20 @@ public class AgentController implements ActionListener{
 				Agent.reaffecterTache();
 			}
 		}
+	}
+	
+	public void retourAgent(String key){
+		Hashtable<String, Agent> a = Agent.getLesAgents();
+		ArrayList<Tache> t = Tache.trier(Tache.listeTachesNonAffectees());
+		System.out.println(t);
+		if(a.containsKey(key)){
+			a.get(key).setAbsent(false);
+			for(Tache tache : t){
+				System.out.println(a.get(key).affecterTache(tache));
+			}
+			a.get(key).affectationTachesAccueil();
+		}
+		
 	}
 
 	public void afficherPlanningAgent(String key) {
