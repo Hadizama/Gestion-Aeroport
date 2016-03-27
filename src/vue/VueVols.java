@@ -1,6 +1,7 @@
 package vue;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Scrollbar;
@@ -22,17 +23,20 @@ public class VueVols extends JPanel {
 	private Fenetre frame;
 	private String[] infos;
 	
+	private JScrollPane jsp ;
+	private JPanel listing, ag;
+	
 	public VueVols(Fenetre f){
 		this.frame = f;
 		VolController controleur = new VolController(frame, this);
 		String[][] vols = controleur.getVols();
 		
-		JPanel listing = new JPanel();
+		listing = new JPanel();
 		listing.setLayout(new GridLayout(vols.length, 1));
 				
 		for (String[] inf : vols) {
 			this.infos = inf;
-			JPanel ag = new JPanel();
+			ag = new JPanel();
 			ag.setLayout(new GridLayout(1,5));
 			ag.add(new JLabel(infos[0]));
 			ag.add(new JLabel(infos[1]));
@@ -53,13 +57,17 @@ public class VueVols extends JPanel {
 			listing.add(ag);
 		}
 		
-		JScrollPane jsp = new JScrollPane(listing);
+		jsp = new JScrollPane(listing);
 		jsp.getViewport().getSize(new Dimension(800, 550));
 		jsp.setPreferredSize(new Dimension(800, 550));
 		jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		this.add(jsp);
 		
 		
+	}
+	
+	public void maj(){
+		frame.setVue(new VueVols(frame));
 	}
 	
 }

@@ -7,6 +7,7 @@ import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import models.Agent;
 import models.Tache;
@@ -15,13 +16,14 @@ import models.TacheVol;
 import models.Vol;
 import vue.Fenetre;
 import vue.ResultFrame;
+import vue.VueVols;
 
 public class VolController implements ActionListener{
 
 	private Fenetre frame;
-	private JPanel vue;
+	private VueVols vue;
 
-	public VolController (Fenetre f, JPanel v) {
+	public VolController (Fenetre f, VueVols v) {
 		if(f!=null)
 			this.frame = f;
 		this.vue = v;
@@ -36,6 +38,8 @@ public class VolController implements ActionListener{
 			break;
 		case "Annuler vol":
 			annulerVol(btn.getName());
+			this.vue.maj();
+			break;
 		}
 	}
 	
@@ -51,12 +55,17 @@ public class VolController implements ActionListener{
 		return res;
 	}
 
-	public void annulerVol(String key) {
+	public void annulerVol(String key) {		
 		if(Vol.getLesVols().containsKey(key)) {
 			ArrayList<Tache> taches = Tache.trier(Vol.getLesVols().get(key).getLesTaches());
-			for (Tache tache : taches)
-				tache.getAgent().desaffecterTache(tache);
-			Vol.getLesVols().get(key).getLesTaches().clear();
+			if(taches.size() >= 0){
+				for (Tache tache : taches){
+					if(tache.getAgent() != null)
+						tache.getAgent().desaffecterTache(tache);
+				}
+				Vol.getLesVols().get(key).getLesTaches().clear();
+			}
+			Vol.getLesVols().remove(key);
 		}
 	}
 
