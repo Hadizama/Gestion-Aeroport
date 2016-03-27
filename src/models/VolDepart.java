@@ -9,13 +9,16 @@ public class VolDepart extends Vol {
 	public VolDepart(String numeroVol, Horaire horaire, String provenance, Avion avion) {
 		super(numeroVol, horaire, provenance, avion);
 		lesVolsDepart.put(numeroVol, this);
-		new TacheEmbarquement("Embarquement du vol :" + numeroVol + ".", horaire.retrait(new Duree(15)), numeroVol);
+		TacheEmbarquement t = new TacheEmbarquement("Embarquement du vol :" + numeroVol + ".", horaire.retrait(new Duree(15)), numeroVol);
+		getLesTaches().put(t.getIdTache(), t);
 		int nbtache=avion.getCapacite()/90;
 		if(nbtache==0){
 			nbtache=1;
 		}
 		for(int i=0; i< nbtache ; i++){
-			new TacheEnregistrement("Enregistrement " + (i+1) + " du vol :" + numeroVol + ".", horaire.retrait(new Duree(1,30)), numeroVol);}
+			TacheEnregistrement t2 = new TacheEnregistrement("Enregistrement " + (i+1) + " du vol :" + numeroVol + ".", horaire.retrait(new Duree(1,30)), numeroVol);
+			getLesTaches().put(t2.getIdTache(), t2);
+		}
 	}
 
 	public static Hashtable<String, VolDepart> getLesVolsDepart() {

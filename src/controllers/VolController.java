@@ -3,10 +3,12 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import models.Agent;
 import models.Tache;
 import models.TacheAccueil;
 import models.TacheVol;
@@ -32,6 +34,8 @@ public class VolController implements ActionListener{
 		case "Afficher planning":
 			afficherPlanningVol(btn.getName());
 			break;
+		case "Annuler vol":
+			annulerVol(btn.getName());
 		}
 	}
 	
@@ -47,21 +51,26 @@ public class VolController implements ActionListener{
 		return res;
 	}
 
-	public void signalerAbsence(String string) {
-		// TODO Auto-generated method stub
-		
+	public void annulerVol(String key) {
+		if(Vol.getLesVols().containsKey(key)) {
+			ArrayList<Tache> taches = Tache.trier(Vol.getLesVols().get(key).getLesTaches());
+			for (Tache tache : taches)
+				tache.getAgent().desaffecterTache(tache);
+			Vol.getLesVols().get(key).getLesTaches().clear();
+		}
 	}
 
 	public void afficherPlanningVol(String key) {
 		if(Vol.getLesVols().containsKey(key)){
-			ArrayList<Tache> lesTachesVols = Tache.trier(TacheVol.getLesTachesVol());
-			if(lesTachesVols.size() == 0)
+			Vol vol = Vol.getLesVols().get(key);
+			ArrayList<Tache> taches = Tache.trier(vol.getLesTaches());
+			if(vol.getLesTaches().size() == 0)
 				new ResultFrame("Aucune tâche n'a été affectée pour ce vol");
 			else{
 				String res = Vol.getLesVols().get(key).toString()
 						+"\n\nListe des tâches affectées à ce vol :\n\n";
-				for (Tache tache : lesTachesVols) {
-					if( ((TacheVol)tache).getNumeroVol().equals(key) )
+				for (Tache tache : taches) {
+					if( ((TacheVol)tache).getNumeroVol().equals(key) && !Tache.listeTachesNonAffectees().contains(tache) )
 						res += "\t" + ((TacheVol)tache).toString() + "\n";
 				}
 				

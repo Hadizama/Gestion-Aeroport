@@ -106,9 +106,11 @@ public abstract class Agent implements Comparable<Agent>{
 	}
 	
 	public void desaffecterTache(Tache t){
-		lesTaches.remove(t);
-		if(t.getDuree().dureeEnMinutes() >= 30){
-			affecterTache(new TacheAccueil("Accueil", t.getDebut(), t.getFin()));
+		if(lesTaches.containsKey(t.getIdTache())){
+			lesTaches.remove(t);
+			if(t.getDuree().dureeEnMinutes() >= 30){
+				affecterTache(new TacheAccueil("Accueil", t.getDebut(), t.getFin()));
+			}
 		}
 	}
 	

@@ -10,6 +10,7 @@ public abstract class Vol implements Comparable<Vol> {
 	private Horaire horaire;
 	private Avion avion;
 	
+	private Hashtable<Integer, TacheVol> lesTaches = new Hashtable<Integer, TacheVol>();
 	private static Hashtable<String, Vol> lesVols = new Hashtable<String, Vol>();
 
 	public Vol(String numeroVol, Horaire horaire, String provenance, Avion avion) {
@@ -38,6 +39,10 @@ public abstract class Vol implements Comparable<Vol> {
 
 	public static Hashtable<String, Vol> getLesVols() {
 		return lesVols;
+	}
+
+	public Hashtable<Integer, TacheVol> getLesTaches() {
+		return lesTaches;
 	}
 
 	@Override
