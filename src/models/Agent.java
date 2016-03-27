@@ -17,6 +17,7 @@ public abstract class Agent implements Comparable<Agent>{
 	private String matricule, nom, prenom;
 	private int code;
 	private Hashtable<Integer, Tache> lesTaches;
+	private boolean absent;
 	
 	private static Hashtable<String, Agent> lesAgents = new Hashtable<String, Agent>();
 	
@@ -25,6 +26,7 @@ public abstract class Agent implements Comparable<Agent>{
 		this.nom = nom;
 		this.prenom = prenom;
 		this.code = code;
+		this.absent = false;
 		this.lesTaches = new Hashtable<Integer, Tache>();
 		lesAgents.put(matricule, this);
 	}	
@@ -62,6 +64,7 @@ public abstract class Agent implements Comparable<Agent>{
 			getLesTaches().put(t.getIdTache(), t);
 			setNbHeure(getNbHeure().retirer(t.getDuree()));
 			Tache.listeTachesNonAffectees().remove(t.getIdTache());
+			t.setAgent(this);
 			return true;
 		}
 		else{
@@ -98,6 +101,17 @@ public abstract class Agent implements Comparable<Agent>{
 		}
 	}
 	
+	public static void reaffecterTache(Tache t){
+		
+	}
+	
+	public void desaffecterTache(Tache t){
+		lesTaches.remove(t);
+		if(t.getDuree().dureeEnMinutes() >= 30){
+			affecterTache(new TacheAccueil("Accueil", t.getDebut(), t.getFin()));
+		}
+	}
+	
 	public String getMatricule() {
 		return matricule;
 	}
@@ -123,7 +137,11 @@ public abstract class Agent implements Comparable<Agent>{
 	}
 
 	public void resetTache(){
-		this.lesTaches.clear();
+		ArrayList<Tache> listeT = Tache.trier(getLesTaches());
+		for(Tache t : listeT){
+			Tache.listeTachesNonAffectees().put(t.getIdTache(), t);
+		}
+		getLesTaches().clear();
 	}
 	
 	public Horaire getHRepas(){
@@ -147,14 +165,14 @@ public abstract class Agent implements Comparable<Agent>{
 		return res;
 	}
 	
-	public void afficherPlanningTache(){
-		ArrayList<Tache> liste = new ArrayList<Tache>(lesTaches.values());
-		Collections.sort(liste);
-		for (Tache tache : liste) {
-			System.out.println(tache);
-		}
+	public boolean isAbsent() {
+		return absent;
 	}
-	
+
+	public void setAbsent(boolean absent) {
+		this.absent = absent;
+	}
+
 	public static ArrayList<Agent> trier(Hashtable h){
 		ArrayList<Agent> liste = new ArrayList<Agent>(h.values());
 		Collections.sort(liste);

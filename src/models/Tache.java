@@ -12,6 +12,7 @@ public abstract class Tache implements Comparable<Tache> {
 	private String libelle;
 	private Horaire debut, fin;
 	private Duree duree;
+	private Agent agent;
 	
 	private static Hashtable<Integer, Tache> lesTachesNonAffectees = new Hashtable<Integer, Tache>();
 	private static Hashtable<Integer, Tache> lesTaches = new Hashtable<Integer, Tache>();
@@ -37,6 +38,14 @@ public abstract class Tache implements Comparable<Tache> {
 
 	public Duree getDuree() {
 		return duree;
+	}
+
+	public Agent getAgent() {
+		return agent;
+	}
+
+	public void setAgent(Agent agent) {
+		this.agent = agent;
 	}
 
 	public void setFin(Horaire fin) {

@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import java.util.Hashtable;
+
 import models.Agent;
+import models.Tache;
+import models.TacheVol;
 import vue.Fenetre;
 import vue.ResultFrame;
 
@@ -29,6 +33,9 @@ public class AgentController implements ActionListener{
 		case "Afficher planning":
 			afficherPlanningAgent(btn.getName());
 			break;
+		case "Signaler absence":
+			signalerAbsence(btn.getName());
+			break;
 		}
 	}
 	
@@ -44,9 +51,12 @@ public class AgentController implements ActionListener{
 		return res;
 	}
 
-	public void signalerAbsence(String string) {
-		// TODO Auto-generated method stub
-		
+	public void signalerAbsence(String key) {
+		Hashtable<String, Agent> a = Agent.getLesAgents();
+		if(a.containsKey(key)){
+			a.get(key).setAbsent(true);
+			a.get(key).resetTache();
+		}		
 	}
 
 	public void afficherPlanningAgent(String key) {
