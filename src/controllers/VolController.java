@@ -45,7 +45,7 @@ public class VolController implements ActionListener{
 			frame.setVue(new VueVols(frame));
 			break;
 		case "Retarder vol":
-			new FenetreRetarderVol();
+			new FenetreRetarderVol(this, btn.getName());
 			break;
 			
 		}
@@ -78,15 +78,25 @@ public class VolController implements ActionListener{
 		}
 	}
 	
-	public void retarderVol(String key, Horaire h){
+	public void retarderVol(String key, int h, int m){
+		Horaire horaire = new Horaire(h, m);
 		if(Vol.getLesVols().containsKey(key)) {
 			Vol vol = Vol.getLesVols().get(key);
 			annulerVol(key);
-			if(vol.getClass().getClass().equals(VolArrivee.class))
-				new VolArrivee(vol.getNumeroVol(), h, vol.getProvenance(), vol.getAvion());
-			else
-				new VolDepart(vol.getNumeroVol(), h, vol.getProvenance(), vol.getAvion());			
+			if(vol.getClass().getClass().equals(VolArrivee.class)){
+				vol = new VolArrivee(vol.getNumeroVol(), horaire, vol.getProvenance(), vol.getAvion());
+			}else{
+				vol = new VolDepart(vol.getNumeroVol(), horaire, vol.getProvenance(), vol.getAvion());
+			}
+			ArrayList<Tache> taches = Tache.trier(vol.getLesTaches());
+			for(Tache t: taches){
+				Tache.listeTachesNonAffectees().put(t.getIdTache(), t);
+			}
+			System.out.println(Tache.listeTachesNonAffectees());
+			Agent.reaffecterTache();
 		}
+		
+		frame.setVue(new VueVols(frame));
 	}
 
 	public void afficherPlanningVol(String key) {
