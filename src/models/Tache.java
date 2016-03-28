@@ -59,13 +59,12 @@ public abstract class Tache implements Comparable<Tache> {
 	public static Hashtable<Integer, Tache> getLesTaches() {
 		return lesTaches;
 	}
-
 	
 	public int getIdTache() {
 		return idTache;
 	}
 	
-
+	// Trier la liste des tâches en fonction de l'horaire de début
 	public static ArrayList<Tache> trier(Hashtable h){
 		ArrayList<Tache> liste = new ArrayList<Tache>(h.values());
 		Collections.sort(liste);
@@ -81,6 +80,7 @@ public abstract class Tache implements Comparable<Tache> {
 		return " - "+ libelle + " ["+ debut +" - "+ fin +"] soit "+ duree + "\n";
 	}
 	
+	// Permet de comprarer deux tâches
 	@Override
     public int compareTo(Tache t) {
 		return debut.compareTo(t.debut);

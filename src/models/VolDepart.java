@@ -9,12 +9,14 @@ public class VolDepart extends Vol {
 	public VolDepart(String numeroVol, Horaire horaire, String provenance, Avion avion) {
 		super(numeroVol, horaire, provenance, avion);
 		lesVolsDepart.put(numeroVol, this);
+		// Création automatique de la tâche d'embarquement liée au vol (sans l'affecter à un agent)
 		TacheEmbarquement t = new TacheEmbarquement("Embarquement du vol :" + numeroVol + ".", horaire.retrait(new Duree(15)), numeroVol);
 		getLesTaches().put(t.getIdTache(), t);
 		int nbtache=avion.getCapacite()/90;
 		if(nbtache==0){
 			nbtache=1;
 		}
+		// Création automatique des tâches d'enregistrement liées au vol (selon la capacité de l'avion)
 		for(int i=0; i< nbtache ; i++){
 			TacheEnregistrement t2 = new TacheEnregistrement("Enregistrement " + (i+1) + " du vol :" + numeroVol + ".", horaire.retrait(new Duree(1,30)), numeroVol);
 			getLesTaches().put(t2.getIdTache(), t2);

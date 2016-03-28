@@ -14,7 +14,6 @@ public abstract class TacheVol extends Tache {
 		super(libelle, debut);
 		this.numeroVol = numeroVol;
 		lesTachesVol.put(getIdTache(), this);
-		
 	}
 
 	public String getNumeroVol() {

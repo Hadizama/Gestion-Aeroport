@@ -46,6 +46,7 @@ public class MainController implements ActionListener{
 		}			
 	}
 	
+	// Importation de l'ensemble des fichiers contenus dans le dossier "ressources"
 	public void importationFichiers(){
 		String lvl = "Avions";
 		try{
@@ -103,17 +104,21 @@ public class MainController implements ActionListener{
 	}
 	
 	
+	// Génération du planning pour l'ensemble des agents
 	public void genererPlanning(){
 		ArrayList<Agent> atp = Agent.trier(AgentTempsPlein.getLesAgentsTempsPlein());
+		// Affectation de toutes les tâches repas pour les agents temps plein
 		for(int i=0; i<atp.size(); i++){
 			atp.get(i).affecterTache(new TacheRepas("Repas", atp.get(i).getHRepas()));
 		}
 		ArrayList<Tache> tv = Tache.trier(TacheVol.getLesTachesVol());
 		ArrayList<Agent> a = Agent.trier(Agent.getLesAgents());
+		// Affectation de toutes les tâches relatives aux vols
 		for(Tache t : tv){
 			int i = 0;
 			while(i<a.size() && !a.get(i).affecterTache(t)){ i++; }
 		}
+		// Complétion des temps libre supérieur à 30 minutes par des tâches accueil
 		for(int i=0; i<a.size();i++){
 			a.get(i).affectationTachesAccueil();
 		}

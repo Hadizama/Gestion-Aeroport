@@ -16,6 +16,7 @@ public class AgentTempsPlein extends Agent {
 	}
 
 	@Override	
+	// Récupération de l'horaire de travail de l'agent selon son cycle et la semaine actuelle
 	public TrancheHoraire getHoraire() {
 		TrancheHoraire[] liste = {
 									new TrancheHoraire(new Horaire(9, 00), new Horaire(17, 00)),

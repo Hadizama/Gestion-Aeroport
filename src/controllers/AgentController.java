@@ -47,6 +47,7 @@ public class AgentController implements ActionListener{
 		}
 	}
 	
+	// Récupération des informations sur les agents depuis vers les models afin de les afficher sur la vue
 	public String[][] getAgents(){
 		String[][] res = new String[Agent.getLesAgents().size()][];
 		ArrayList<Agent> atp = Agent.trier(Agent.getLesAgents());
@@ -59,20 +60,27 @@ public class AgentController implements ActionListener{
 		return res;
 	}
 
+	// Signaler l'absence d'un agent
 	public void signalerAbsence(String key) {
 		Hashtable<String, Agent> a = Agent.getLesAgents();
 		if(a.containsKey(key) && !a.get(key).isAbsent()){
+			// Rendre l'agent absent
 			a.get(key).setAbsent(true);
+			// Enlever toutes les tâches affectées à cet agent
 			a.get(key).resetTache();
+			// Réaffecter ces tâches à d'autres agents si possible
 			Agent.reaffecterTache();
 		}
 	}
 	
+	// Signaler le retour d'absence d'un agent
 	public void retourAgent(String key){
 		Hashtable<String, Agent> a = Agent.getLesAgents();
 		ArrayList<Tache> t = Tache.trier(Tache.listeTachesNonAffectees());
 		if(a.containsKey(key)){
+			// Signaler le retour de l'agent
 			a.get(key).setAbsent(false);
+			// Affecter des tâches à cet agent
 			for(Tache tache : t){
 				a.get(key).affecterTache(tache);
 			}
@@ -81,6 +89,7 @@ public class AgentController implements ActionListener{
 		
 	}
 
+	// Affichage du planning d'un agent (liste des tâches à effectuer)
 	public void afficherPlanningAgent(String key) {
 		if(Agent.getLesAgents().containsKey(key)){
 			if(Agent.getLesAgents().get(key).getLesTaches().size() == 0)
@@ -90,6 +99,7 @@ public class AgentController implements ActionListener{
 		}		
 	}
 	
+	// Permet de savoir si un agent est absent ou non depuis la vue
 	public boolean estAbsent(String key){
 		return Agent.getLesAgents().get(key).isAbsent();
 	}

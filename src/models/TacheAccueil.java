@@ -12,7 +12,6 @@ public class TacheAccueil extends Tache {
 		setFin(fin);
 		setDuree(fin.retrait(debut));
 		lesTachesAccueil.put(getIdTache(), this);
-		
 	}
 
 	public static Hashtable<Integer, Tache> getLesTachesAccueil() {

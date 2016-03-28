@@ -54,12 +54,14 @@ public abstract class Vol implements Comparable<Vol> {
 		return "Vol numéro "+numeroVol+" en provenance de "+provenance+" pour "+horaire+" avec un "+avion;
 	}
 	
+	// Trier les vols selon l'horaire d'arrivée ou de départ
 	public static ArrayList<Vol> trier(Hashtable<String, Vol> h){
 		ArrayList<Vol> liste = new ArrayList<Vol>(h.values());
 		Collections.sort(liste);
 		return liste;
 	}
 	
+	// Permet de comparer deux vols entre eux
 	@Override
 	public int compareTo(Vol v){    	
 		return getHoraire().compareTo(v.getHoraire());

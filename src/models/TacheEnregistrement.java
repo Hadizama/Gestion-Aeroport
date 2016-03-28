@@ -12,7 +12,6 @@ public class TacheEnregistrement extends TacheVol {
 		setDuree(new Duree(1, 15));
 		setFin(debut.ajout(getDuree()));
 		lesTachesEnregistrement.put(getIdTache(), this);
-		
 	}
 
 	public static Hashtable<Integer, TacheEnregistrement> getLesTachesEnregistrement() {

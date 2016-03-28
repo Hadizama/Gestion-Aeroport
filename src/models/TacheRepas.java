@@ -12,7 +12,6 @@ public class TacheRepas extends Tache {
 		setDuree(new Duree(1, 0));
 		setFin(debut.ajout(getDuree()));
 		lesTachesRepas.put(getIdTache(),this);
-		
 	}
 
 	public static Hashtable<Integer, Tache> getLesTachesRepas() {
