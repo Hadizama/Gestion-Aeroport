@@ -42,8 +42,7 @@ public class AgentController implements ActionListener{
 		case "Retour agent":
 			retourAgent(btn.getName());
 			btn.getParent().setBackground(null);
-			btn.setText("Signaler absence"
-					+ "");
+			btn.setText("Signaler absence");
 			break;
 		}
 	}
@@ -91,6 +90,10 @@ public class AgentController implements ActionListener{
 			else
 				new ResultFrame(Agent.getLesAgents().get(key).toString());
 		}		
+	}
+	
+	public boolean estAbsent(String key){
+		return Agent.getLesAgents().get(key).isAbsent();
 	}
 
 }

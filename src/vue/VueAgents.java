@@ -1,6 +1,7 @@
 package vue;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Scrollbar;
@@ -36,7 +37,7 @@ public class VueAgents extends JPanel {
 			ag.setLayout(new GridLayout(1,5));
 			ag.add(new JLabel(infos[2]));
 			ag.add(new JLabel(infos[0]));
-			ag.add(new JLabel(infos[1]));
+			ag.add(new JLabel(infos[1]));			
 			JButton b = new JButton("Signaler absence");
 			b.addActionListener(controleur);
 			b.setName(infos[2]);
@@ -45,6 +46,10 @@ public class VueAgents extends JPanel {
 			b2.setName(infos[2]);
 			b2.addActionListener(controleur);
 			ag.add(b2);
+			if(controleur.estAbsent(infos[2])){
+				ag.setBackground(Color.ORANGE);
+				b.setText("Retour agent");
+			}
 			listing.add(ag);
 		}
 		
