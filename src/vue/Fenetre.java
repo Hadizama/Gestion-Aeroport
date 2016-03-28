@@ -23,7 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Observable;
 import java.util.Observer;
-//nikoumouk
+
 public class Fenetre extends JFrame implements Observer {
 
 	public static void main(String[] args) {
