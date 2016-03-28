@@ -70,7 +70,7 @@ public class VolController implements ActionListener{
 				for (Tache tache : taches){
 					if(tache.getAgent() != null)
 						tache.getAgent().desaffecterTache(tache);
-					TacheVol.getLesTachesVol().remove(tache.getIdTache());
+						TacheVol.getLesTachesVol().remove(tache.getIdTache());
 				}
 				Vol.getLesVols().get(key).getLesTaches().clear();
 			}
