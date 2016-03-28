@@ -169,6 +169,7 @@ public abstract class Agent implements Comparable<Agent>{
 		for(Tache t : listeT){
 			if(!t.getClass().equals(TacheAccueil.class) && !t.getClass().equals(TacheRepas.class))
 				Tache.listeTachesNonAffectees().put(t.getIdTache(), t);
+				setNbHeure(getNbHeure().ajout(t.getDuree()));
 		}
 		lesTaches.clear();
 	}

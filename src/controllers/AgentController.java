@@ -42,7 +42,8 @@ public class AgentController implements ActionListener{
 		case "Retour agent":
 			retourAgent(btn.getName());
 			btn.getParent().setBackground(null);
-			btn.setText("Signaler absence");
+			btn.setText("Signaler absence"
+					+ "");
 			break;
 		}
 	}
@@ -52,7 +53,7 @@ public class AgentController implements ActionListener{
 		ArrayList<Agent> atp = Agent.trier(Agent.getLesAgents());
 		int i=0;
 		for (Agent a : atp) {
-			String[] v = {a.getNom(), a.getPrenom(), a.getHoraire().toString(), a.getMatricule()};
+			String[] v = {a.getNom(), a.getHoraire().toString(), a.getMatricule()};
 			res[i] = v;
 			i++;
 		}
@@ -73,11 +74,10 @@ public class AgentController implements ActionListener{
 	public void retourAgent(String key){
 		Hashtable<String, Agent> a = Agent.getLesAgents();
 		ArrayList<Tache> t = Tache.trier(Tache.listeTachesNonAffectees());
-		System.out.println(t);
 		if(a.containsKey(key)){
 			a.get(key).setAbsent(false);
 			for(Tache tache : t){
-				System.out.println(a.get(key).affecterTache(tache));
+				a.get(key).affecterTache(tache);
 			}
 			a.get(key).affectationTachesAccueil();
 		}

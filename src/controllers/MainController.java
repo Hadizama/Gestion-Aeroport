@@ -49,7 +49,7 @@ public class MainController implements ActionListener{
 	public void importationFichiers(){
 		String lvl = "Avions";
 		try{
-			BufferedReader entree = new BufferedReader	(new FileReader("./ressources/avions16-v1.txt"));
+			BufferedReader entree = new BufferedReader (new FileReader("./ressources/avions16-v1.txt"));
 			String ligne= null;
 			while ((ligne = entree.readLine())!=null){			
 				StringTokenizer decoupe = new StringTokenizer(ligne);
@@ -57,7 +57,7 @@ public class MainController implements ActionListener{
 			}
 			
 			lvl = "Agents Mi-Temps";
-			entree = new BufferedReader	(new FileReader("./ressources/AgentsMiTemps-16-v1.txt"));
+			entree = new BufferedReader (new FileReader("./ressources/AgentsMiTemps-16-v1.txt"));
 			ligne= null;
 			while ((ligne = entree.readLine())!=null){			
 				StringTokenizer decoupe = new StringTokenizer(ligne);

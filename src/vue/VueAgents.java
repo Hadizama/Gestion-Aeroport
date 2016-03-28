@@ -34,15 +34,15 @@ public class VueAgents extends JPanel {
 			this.infos = inf;
 			JPanel ag = new JPanel();
 			ag.setLayout(new GridLayout(1,5));
+			ag.add(new JLabel(infos[2]));
 			ag.add(new JLabel(infos[0]));
 			ag.add(new JLabel(infos[1]));
-			ag.add(new JLabel(infos[2]));
 			JButton b = new JButton("Signaler absence");
 			b.addActionListener(controleur);
-			b.setName(infos[3]);
+			b.setName(infos[2]);
 			ag.add(b);
 			JButton b2 = new JButton("Afficher planning");
-			b2.setName(infos[3]);
+			b2.setName(infos[2]);
 			b2.addActionListener(controleur);
 			ag.add(b2);
 			listing.add(ag);
