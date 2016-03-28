@@ -32,7 +32,7 @@ public class FenetreRetarderVol extends JFrame{
 		
 		setTitle("Retarder un vol");
 		this.setDefaultCloseOperation(ResultFrame.DISPOSE_ON_CLOSE);
-	    setSize(300, 200);
+	    setSize(300, 140);
 		vue.setLayout(new BorderLayout());
 
 		JPanel nouvelHoraire = new JPanel();
@@ -59,6 +59,7 @@ public class FenetreRetarderVol extends JFrame{
 		});
 		vue.add(b);
 		setContentPane(vue);
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		
 		frv = this;
