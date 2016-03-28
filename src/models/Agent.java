@@ -187,7 +187,7 @@ public abstract class Agent implements Comparable<Agent>{
 	}
 	
 	public String toString(){
-		String res = this.matricule +" - "+ this.nom + this.prenom + " - "+ getHoraire() + "\n\nListe des tâches affectées :\n";
+		String res = this.matricule +" - "+ this.nom + " - "+ getHoraire() + "\n\nListe des tâches affectées :\n";
 		ArrayList<Tache> liste = Tache.trier(lesTaches);
 		for(Tache t : liste){
 			res += "\t"+ t +"\n";

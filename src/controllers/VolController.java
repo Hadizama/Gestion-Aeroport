@@ -110,7 +110,7 @@ public class VolController implements ActionListener{
 				for (Tache tache : taches) {
 					if( ((TacheVol)tache).getNumeroVol().equals(key) && !Tache.listeTachesNonAffectees().contains(tache) && tache.getAgent() != null)
 						res += "\t" + ((TacheVol)tache).toString() + " (" + tache.getAgent().getMatricule() + ", " 
-								+ tache.getAgent().getNom() + ", " + tache.getAgent().getPrenom() + ")\n";
+								+ tache.getAgent().getNom() + ")\n";
 				}
 				
 				new ResultFrame(res);
