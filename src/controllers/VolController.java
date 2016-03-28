@@ -92,7 +92,6 @@ public class VolController implements ActionListener{
 			for(Tache t: taches){
 				Tache.listeTachesNonAffectees().put(t.getIdTache(), t);
 			}
-			System.out.println(Tache.listeTachesNonAffectees());
 			Agent.reaffecterTache();
 		}
 		
