@@ -15,7 +15,10 @@ import models.Tache;
 import models.TacheAccueil;
 import models.TacheVol;
 import models.Vol;
+import models.VolArrivee;
+import models.VolDepart;
 import vue.Fenetre;
+import vue.FenetreRetarderVol;
 import vue.ResultFrame;
 import vue.VueVols;
 
@@ -42,8 +45,7 @@ public class VolController implements ActionListener{
 			frame.setVue(new VueVols(frame));
 			break;
 		case "Retarder vol":
-			retarderVol(btn.getName());
-			frame.setVue(new VueVols(frame));
+			new FenetreRetarderVol();
 			break;
 			
 		}
@@ -76,8 +78,15 @@ public class VolController implements ActionListener{
 		}
 	}
 	
-	public void retarderVol(String key){
-		
+	public void retarderVol(String key, Horaire h){
+		if(Vol.getLesVols().containsKey(key)) {
+			Vol vol = Vol.getLesVols().get(key);
+			annulerVol(key);
+			if(vol.getClass().getClass().equals(VolArrivee.class))
+				new VolArrivee(vol.getNumeroVol(), h, vol.getProvenance(), vol.getAvion());
+			else
+				new VolDepart(vol.getNumeroVol(), h, vol.getProvenance(), vol.getAvion());			
+		}
 	}
 
 	public void afficherPlanningVol(String key) {
