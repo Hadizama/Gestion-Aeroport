@@ -55,6 +55,19 @@ public class AgentTempsPlein extends Agent {
 		return lesAgentsTempsPlein;
 	}	
 	
-	
+
+	// Récupération de l'horaire reservé pour le repas pour un agent (temps plein)
+	public Horaire getHRepas(){
+		Horaire horaire;
+		do {
+			// Génération d'un horaire aléatoire entre 11h30 et 14h
+			int h = (int) (Math.random()*(14-11)+11);
+			int m = (int) (Math.random()*59);
+			if(h == 11)
+				m = (int) (Math.random()*29+30);
+			horaire = new Horaire(h, m);
+		} while(!getHoraire().contient(horaire) || !getHoraire().contient(horaire.ajout(new Duree(1,0))) );
+		return horaire;
+	}
 
 }

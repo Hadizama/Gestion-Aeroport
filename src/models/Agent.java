@@ -61,7 +61,7 @@ public abstract class Agent implements Comparable<Agent>{
 			return false;
 	}
 	
-	// Affecter une tâche à un agent si ce dernier à la possibilité de réaliser cette tâche
+	// Affecter une tâche à un agent si ce dernier a la possibilité de réaliser cette tâche
 	public boolean affecterTache(Tache t) {
 		// Vérification de la disponibilité, du temps de travail restant et de son etat d'absence
 		if(estDisponible(t.getDebut(), t.getFin()) && resteTempsTravail(t) && !isAbsent()){
@@ -109,8 +109,8 @@ public abstract class Agent implements Comparable<Agent>{
 		}
 	}
 	
-	// Méthode statique permettant d'affecter les tâches "non affectés" aux différents agent
-	// Utilisé lors de l'absence d'un agent pour reaffecter l'ensemble de ses tâches à d'autres agents
+	// Méthode statique permettant d'affecter les tâches "non affectées" aux différents agents
+	// Utilisée lors de l'absence d'un agent pour reaffecter l'ensemble de ses tâches à d'autres agents
 	public static void reaffecterTache(){
 		ArrayList<Tache> ltna = Tache.trier(Tache.listeTachesNonAffectees());
 		ArrayList<Agent> agents = Agent.trier(lesAgents);
@@ -189,19 +189,6 @@ public abstract class Agent implements Comparable<Agent>{
 		lesTaches.clear();
 	}
 	
-	// Récupération de l'horaire reservé pour le repas pour un agent (temps plein)
-	public Horaire getHRepas(){
-		Horaire horaire;
-		do {
-			// Génération d'un horaire aléatoire entre 11h30 et 14h
-			int h = (int) (Math.random()*(14-11)+11);
-			int m = (int) (Math.random()*59);
-			if(h == 11)
-				m = (int) (Math.random()*29+30);
-			horaire = new Horaire(h, m);
-		} while(!getHoraire().contient(horaire) || !getHoraire().contient(horaire.ajout(new Duree(1,0))) );
-		return horaire;
-	}
 	
 	public String toString(){
 		String res = this.matricule +" - "+ this.nom + " - "+ getHoraire() + "\n\nListe des tâches affectées :\n";

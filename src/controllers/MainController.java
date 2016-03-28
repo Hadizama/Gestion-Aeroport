@@ -109,7 +109,7 @@ public class MainController implements ActionListener{
 		ArrayList<Agent> atp = Agent.trier(AgentTempsPlein.getLesAgentsTempsPlein());
 		// Affectation de toutes les tâches repas pour les agents temps plein
 		for(int i=0; i<atp.size(); i++){
-			atp.get(i).affecterTache(new TacheRepas("Repas", atp.get(i).getHRepas()));
+			atp.get(i).affecterTache(new TacheRepas("Repas", ((AgentTempsPlein) atp.get(i)).getHRepas()));
 		}
 		ArrayList<Tache> tv = Tache.trier(TacheVol.getLesTachesVol());
 		ArrayList<Agent> a = Agent.trier(Agent.getLesAgents());
