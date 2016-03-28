@@ -35,6 +35,7 @@ public abstract class Agent implements Comparable<Agent>{
 	public abstract Duree getNbHeure();
 	public abstract void setNbHeure(Duree nbHeure);
 	
+	// Retourne True si l'agent est disponible pour la tranche horaire renseignée, sinon faux
 	public boolean estDisponible(Horaire debut, Horaire fin){
 		TrancheHoraire thAgent = getHoraire();
 		TrancheHoraire thTache = new TrancheHoraire(debut, fin);
@@ -52,6 +53,7 @@ public abstract class Agent implements Comparable<Agent>{
 		return res;
 	}
 	
+	// Vérifie l'agent a encore du temps de travail
 	private boolean resteTempsTravail(Tache t){
 		if(getNbHeure().compareTo(t.getDuree()) >= 0)
 			return true;
@@ -59,20 +61,26 @@ public abstract class Agent implements Comparable<Agent>{
 			return false;
 	}
 	
+	// Affecter une tâche à un agent si ce dernier à la possibilité de réaliser cette tâche
 	public boolean affecterTache(Tache t) {
+		// Vérification de la disponibilité, du temps de travail restant et de son etat d'absence
 		if(estDisponible(t.getDebut(), t.getFin()) && resteTempsTravail(t) && !isAbsent()){
 			getLesTaches().put(t.getIdTache(), t);
+			// Mise à jour du temps de travail
 			setNbHeure(getNbHeure().retirer(t.getDuree()));
 			Tache.listeTachesNonAffectees().remove(t.getIdTache());
+			// Affectation de l'agent à la tache
 			t.setAgent(this);
 			return true;
 		}
 		else{
+			// Ajout de la tâche à la liste des tâches non affectées
 			Tache.listeTachesNonAffectees().put(t.getIdTache(), t);
 			return false;
 		}		
 	}
 	
+	// Affectation des tâches accueil pour "remplir" les temps libre (>= 30min) de l'agent
 	public void affectationTachesAccueil(){
 		ArrayList<Tache> taches = Tache.trier(lesTaches);
 		Duree free;
@@ -81,19 +89,19 @@ public abstract class Agent implements Comparable<Agent>{
 			affecterTache(new TacheAccueil("Accueil", getHoraire().getDebutTrancheHoraire(), getHoraire().getFinTrancheHoraire()));
 		}
 		else{
-			// Debut
+			// Debut de journée
 			free = taches.get(0).getDebut().retrait(getHoraire().getDebutTrancheHoraire());
 			if(free.dureeEnMinutes() >= 30)
 				affecterTache(new TacheAccueil("Accueil", getHoraire().getDebutTrancheHoraire(), taches.get(0).getDebut()));
 			
-			// Ensemble des tâches
+			// Entre les tâches affectées
 			for (int i = 1; i < taches.size()-1; i++) {
 				free = taches.get(i).getDebut().retrait(taches.get(i-1).getFin());
 				if(free.dureeEnMinutes() >= 30)
 					affecterTache(new TacheAccueil("Accueil", taches.get(i-1).getFin(), taches.get(i).getDebut()));
 			}
 			
-			// Fin
+			// Fin de journée
 			free = getHoraire().getFinTrancheHoraire().retrait(taches.get(taches.size()-1).getFin());
 			if(free.dureeEnMinutes() >= 30)
 				affecterTache(new TacheAccueil("Accueil", taches.get(taches.size()-1).getFin(), getHoraire().getFinTrancheHoraire()));	
@@ -101,18 +109,23 @@ public abstract class Agent implements Comparable<Agent>{
 		}
 	}
 	
+	// Méthode statique permettant d'affecter les tâches "non affectés" aux différents agent
+	// Utilisé lors de l'absence d'un agent pour reaffecter l'ensemble de ses tâches à d'autres agents
 	public static void reaffecterTache(){
 		ArrayList<Tache> ltna = Tache.trier(Tache.listeTachesNonAffectees());
 		ArrayList<Agent> agents = Agent.trier(lesAgents);
+		// Parcours des tâches non affectées
 		for(Tache t: ltna){
 			boolean affecte = false;
 			int i = 0;
+			// Si un agent a du temps libre pour réaliser l'une des tâches
 			while(!affecte && i<agents.size()){
 				if(!agents.get(i).isAbsent())
 					affecte = agents.get(i).affecterTache(t);
 				i++;
 			}
 			i = 0;
+			// Remplacement de tache Accueil afin de réaliser l'une des tâches non affectées
 			while(i<TacheAccueil.getLesTachesAccueil().size() && !affecte){
 				Tache ta = Tache.trier(TacheAccueil.getLesTachesAccueil()).get(i);
 				TrancheHoraire th = new TrancheHoraire(ta.getDebut(), ta.getFin());
@@ -130,6 +143,7 @@ public abstract class Agent implements Comparable<Agent>{
 		}
 	}
 	
+	// Désaffecter une tâche à un agent
 	public boolean desaffecterTache(Tache t){
 		if(lesTaches.containsKey(t.getIdTache())){
 			setNbHeure(getNbHeure().ajout(t.getDuree()));
@@ -164,6 +178,7 @@ public abstract class Agent implements Comparable<Agent>{
 		return lesAgents;
 	}
 
+	// Remise à zero de l'ensemble des tâches d'un agent (ces tâches ont alors le statut de tâche "non affectée")
 	public void resetTache(){
 		ArrayList<Tache> listeT = Tache.trier(lesTaches);
 		for(Tache t : listeT){
@@ -174,9 +189,11 @@ public abstract class Agent implements Comparable<Agent>{
 		lesTaches.clear();
 	}
 	
+	// Récupération de l'horaire reservé pour le repas pour un agent (temps plein)
 	public Horaire getHRepas(){
 		Horaire horaire;
 		do {
+			// Génération d'un horaire aléatoire entre 11h30 et 14h
 			int h = (int) (Math.random()*(14-11)+11);
 			int m = (int) (Math.random()*59);
 			if(h == 11)
@@ -195,6 +212,7 @@ public abstract class Agent implements Comparable<Agent>{
 		return res;
 	}
 	
+	// Retourne True si l'agent est absent, false sinon
 	public boolean isAbsent() {
 		return absent;
 	}
@@ -203,12 +221,14 @@ public abstract class Agent implements Comparable<Agent>{
 		this.absent = absent;
 	}
 
+	// Trier la liste des tâches en fonction de leur Horaire de début
 	public static ArrayList<Agent> trier(Hashtable h){
 		ArrayList<Agent> liste = new ArrayList<Agent>(h.values());
 		Collections.sort(liste);
 		return liste;
 	}
 	
+	// Permet de comparer deux agents entre eux
     public int compareTo(Agent a){    	
 		return getHoraire().getDebutTrancheHoraire().compareTo(a.getHoraire().getDebutTrancheHoraire());
     }
