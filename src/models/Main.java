@@ -6,6 +6,7 @@ import java.util.Enumeration;
 
 import vue.Fenetre;
 import controllers.MainController;
+import controllers.VolController;
 
 
 public class Main {

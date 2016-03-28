@@ -66,8 +66,5 @@ public class VueVols extends JPanel {
 		
 	}
 	
-	public void maj(){
-		frame.setVue(new VueVols(frame));
-	}
 	
 }

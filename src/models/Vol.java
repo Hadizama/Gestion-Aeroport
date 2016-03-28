@@ -33,6 +33,10 @@ public abstract class Vol implements Comparable<Vol> {
 		return horaire;
 	}
 
+	public void setHoraire(Horaire horaire) {
+		this.horaire = horaire;
+	}
+
 	public Avion getAvion() {
 		return avion;
 	}

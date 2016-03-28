@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import models.Agent;
+import models.Horaire;
 import models.Tache;
 import models.TacheAccueil;
 import models.TacheVol;
@@ -38,8 +39,13 @@ public class VolController implements ActionListener{
 			break;
 		case "Annuler vol":
 			annulerVol(btn.getName());
-			this.vue.maj();
+			frame.setVue(new VueVols(frame));
 			break;
+		case "Retarder vol":
+			retarderVol(btn.getName());
+			frame.setVue(new VueVols(frame));
+			break;
+			
 		}
 	}
 	
@@ -62,11 +68,16 @@ public class VolController implements ActionListener{
 				for (Tache tache : taches){
 					if(tache.getAgent() != null)
 						tache.getAgent().desaffecterTache(tache);
+					TacheVol.getLesTachesVol().remove(tache.getIdTache());
 				}
 				Vol.getLesVols().get(key).getLesTaches().clear();
 			}
 			Vol.getLesVols().remove(key);
 		}
+	}
+	
+	public void retarderVol(String key){
+		
 	}
 
 	public void afficherPlanningVol(String key) {
