@@ -27,5 +27,9 @@ public class ResultFrame extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
+	
+	public void setTitre(String titre){
+		this.setTitle(titre);
+	}
 
 }

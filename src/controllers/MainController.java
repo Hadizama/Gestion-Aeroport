@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import vue.Fenetre;
+import vue.ResultFrame;
 import vue.VueAgents;
 import vue.VueVols;
 import models.*;
@@ -42,6 +43,14 @@ public class MainController implements ActionListener{
 			break;
 		case "Gestion des vols":
 			frame.setVue(new VueVols(frame));
+			break;
+		case "Taches non affectées":
+			if(Tache.listeTachesNonAffectees().size() == 0)
+				new ResultFrame("Veuillez generer le planning pour connaitre les taches non affectees.");
+			else{
+				ResultFrame rf = new ResultFrame(Tache.listeTachesNonAffectees().toString());
+				rf.setTitre("Liste des taches non affectees");
+			}
 			break;
 		}			
 	}

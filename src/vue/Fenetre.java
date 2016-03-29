@@ -40,8 +40,11 @@ public class Fenetre extends JFrame implements Observer {
 			MainController controleur = new MainController(this, vueAccueil); 
 			controleur.importationFichiers();
 			JPanel panelboutons = new JPanel();
-			panelboutons.setLayout(new GridLayout(1,3));
+			panelboutons.setLayout(new GridLayout(1,4));
 			panelboutons.setPreferredSize(new Dimension(250, 50));
+			JButton btnaffectee = new JButton("Taches non affectées");
+			btnaffectee.addActionListener(controleur);
+			panelboutons.add(btnaffectee);
 			JButton gestionVols = new JButton("Gestion des vols");
 			gestionVols.addActionListener(controleur);
 			panelboutons.add(gestionVols);
